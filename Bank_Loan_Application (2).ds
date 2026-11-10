@@ -1,0 +1,2029 @@
+/*
+ * Author       : jaayish.ev.2024.cse_rajal163
+ * Generated on : 10-Nov-2026 09:25:27
+ * Version      : 1.0
+ */
+ application "Bank Loan Application"
+ {
+ 	date format = "dd-MMM-yyyy"
+ 	time zone = "Asia/Kolkata"
+ 	time format = "24-hr"
+
+ 	forms
+	{
+		form Bank_Loan_Application
+		{
+			displayname = "Bank Loan Application"
+			success message = "Data Added Successfully!"
+			Section_A_Personal_Details
+			(
+				type = section
+				displayname = "Section A — Personal Details"
+				visibility = true
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Applicant_Name
+			(
+    			type = name
+     			prefix
+     			(
+	     			 type = prefix
+	     			 displayname ="Prefix"
+	     			 visibility = false
+	     			 value = {"Mr.","Mrs.","Ms."}
+     			) 
+     			first_name
+     			(
+	     			 type = first_name
+	     			 displayname ="First Name"
+     			) 
+     			last_name
+     			(
+	     			 type = last_name
+	     			 displayname ="Last Name"
+     			) 
+     			suffix
+     			(
+	     			 type = suffix
+	     			 displayname ="Suffix"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have Date_Of_Birth
+			(
+    			type = date
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			PAN_Number
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Section_B_Contact_Details
+			(
+				type = section
+				displayname = "Section B — Contact Details"
+				visibility = true
+	 			row = 2
+	 			column = 0   
+				width = medium
+			)
+			must have unique Email_Address
+			(
+    			type = email
+				maxchar = 80
+	 			row = 2
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			Residential_Address
+			(
+    			type = address
+     			capture_coordinates = true
+     			adjust_using_map = false
+     			address_line_1
+     			(
+	     			  type = address_line_1
+	     			  displayname = "Address Line 1"
+     			) 
+     			address_line_2
+     			(
+	     			  type = address_line_2
+	     			  displayname = "Address Line 2"
+     			) 
+     			district_city
+     			(
+	     			  type = district_city
+	     			  displayname = "City / District"
+     			) 
+     			state_province
+     			(
+	     			  type = state_province
+	     			  displayname = "State / Province"
+     			) 
+     			postal_Code
+     			(
+	     			  type = postal_Code
+	     			  displayname = "Postal Code"
+     			) 
+     			country
+     			(
+	     			  type = country
+	     			  displayname = "Country"
+     			) 
+     			latitude
+     			(
+	     			  type = latitude
+	     			  displayname = "latitude"
+	     			 visibility = false
+     			) 
+     			longitude
+     			(
+	     			  type = longitude
+	     			  displayname = "longitude"
+	     			 visibility = false
+     			) 
+	 			row = 2
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have unique Contact_Number
+			(
+    			type = phonenumber
+    			defaultcountry="in"
+	 			row = 2
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			Section_C_Income_Employment_Details
+			(
+				type = section
+				displayname = "Section C — Income & Employment Details"
+				visibility = true
+	 			row = 3
+	 			column = 0   
+				width = medium
+			)
+			must have Employment_Type
+			(
+				type = radiobuttons
+				maxchar = 100
+				values = {"salaried","self_employed_professional","self_employed_business"}
+				sortorder = ascending
+				others option = true
+	 			row = 3
+	 			column = 1   
+				width = medium
+			)
+			must have Monthly_Income
+			(
+				type = number
+				displayname = "Monthly Income"
+	 			row = 3
+	 			column = 1   
+				width = medium
+			)
+			Existing_Liabilities
+			(
+				type = list	
+				displayname = "Existing Liabilities"
+				values = {"Credit card Dues","Car Loan","Student Loan"}
+				height = 60px
+	 			row = 3
+	 			column = 1   
+				width = medium
+			)
+			Section_D_Loan_Details_Consent
+			(
+				type = section
+				displayname = "Section D — Loan Details & Consent"
+				visibility = true
+	 			row = 4
+	 			column = 0   
+				width = medium
+			)
+			must have Loan_Type
+			(
+				type = picklist
+				displayname = "Loan Type"
+				maxchar = 100
+				values = {"Car Loan","House Loan","Gold Loan"}
+				sortorder = ascending
+				others option = true
+	 			row = 4
+	 			column = 1   
+				width = medium
+			)
+			Purpose_of_Loan
+			(
+    			type = textarea
+				displayname = "Purpose of Loan"
+				height = 100px
+	 			row = 4
+	 			column = 1   
+				width = medium
+			)
+			Preferred_Callback_Time
+			(
+    			type = time
+				displayname = "Preferred Callback Time"
+				timedisplayoptions = "hh:mm:ss" 
+	 			row = 4
+	 			column = 1   
+				width = medium
+			)
+			must have I_consent_to_a_credit_bureau_check
+			(
+				type = checkboxes	
+				displayname = "I consent to a credit bureau check"
+				values = {"Yes, I authorize a credit check","Provided informations are True"}
+	 			row = 4
+	 			column = 1   
+				width = medium
+			)
+			Section_E_Branch_Verification_KYC
+			(
+				type = section
+				displayname = "Section E — Branch Verification & KYC"
+				visibility = true
+	 			row = 5
+	 			column = 0   
+				width = medium
+			)
+			Bank_Loan_Application
+			(
+				type = picklist	
+				displayname = "Bank Loan Application"
+				values  = Bank_Loan_Application.ID
+    			displayformat = [PAN_Number]
+				sortorder = ascending
+	 			row = 5
+	 			column = 1   
+				width = medium
+			)
+			Applicant_Photo
+			(
+    			type = image
+				displayname = "Applicant Photo"
+				source  = file
+				aspect ratio = original
+				camera = primary
+				show gallery = true
+				switch camera = true
+	 			row = 5
+	 			column = 1   
+				width = medium
+			)
+			Income_Proof_Upload
+			(
+    			type = upload file
+				displayname = "Income Proof Upload"
+				browse = local_drive
+				allowed file formats = {"pdf","jpg","png"}
+	 			row = 5
+	 			column = 1   
+				width = medium
+			)
+			Debt_to_Income_Ratio
+			(
+				type = decimal
+				displayname = "Debt-to-Income Ratio"
+	 			row = 5
+	 			column = 1   
+				width = medium
+			)
+			Section_F_Joint_Application_Media_Details
+			(
+				type = section
+				displayname = "Section F — Joint Application & Media Details"
+				visibility = true
+	 			row = 6
+	 			column = 0   
+				width = medium
+			)
+			Property_Listing_URL
+			(
+    			type = url
+				displayname = "Property Listing URL"
+				enable  linkname
+	 			row = 6
+	 			column = 1   
+				width = medium
+			)
+			Property_Video_Walkthrough
+			(
+    			type = video
+				displayname = "Property Video Walkthrough"
+    			duration=30
+	 			row = 6
+	 			column = 1   
+				width = medium
+			)
+			Loan_Purpose_Voice_Note
+			(
+     			type = audio
+				displayname = "Loan Purpose Voice Note"
+    			duration=60
+	 			row = 6
+	 			column = 1   
+				width = medium
+			)
+			Co_Applicant_Details
+			(
+				type = grid
+				displayname = "Co-Applicant Details"
+				co_applicant_name
+				(
+    				type = name
+					displayname = "co-applicant name"
+     				prefix
+     				(
+	     				 type = prefix
+	     				 displayname ="Prefix"
+	     				 visibility = false
+	     				 value = {"Mr.","Mrs.","Ms."}
+     				) 
+     				first_name
+     				(
+	     				 type = first_name
+	     				 displayname ="First Name"
+     				) 
+     				last_name
+     				(
+	     				 type = last_name
+	     				 displayname ="Last Name"
+     				) 
+     				suffix
+     				(
+	     				 type = suffix
+	     				 displayname ="Suffix"
+	     				 visibility = false
+     				) 
+					width = medium
+					personal data = true
+				)
+				Name
+				(
+    				type = name
+     				prefix
+     				(
+	     				 type = prefix
+	     				 displayname ="Prefix"
+	     				 visibility = false
+	     				 value = {"Mr.","Mrs.","Ms."}
+     				) 
+     				first_name
+     				(
+	     				 type = first_name
+	     				 displayname ="First Name"
+     				) 
+     				last_name
+     				(
+	     				 type = last_name
+	     				 displayname ="Last Name"
+     				) 
+     				suffix
+     				(
+	     				 type = suffix
+	     				 displayname ="Suffix"
+	     				 visibility = false
+     				) 
+					width = medium
+					personal data = true
+				)
+	 			row = 7
+	 			column = 1   
+				width = medium
+			)
+			SectionSectionSection_G_Loan_Terms_EMI_Computation
+			(
+				type = section
+				displayname = "SectionSectionSection G — Loan Terms & EMI Computation"
+				visibility = true
+	 			row = 8
+	 			column = 0   
+				width = medium
+			)
+			must have Has_Existing_Loan_With_Bank
+			(
+    			type = checkbox
+				displayname = "Has Existing Loan With Bank"
+				initial value = false
+	 			row = 8
+	 			column = 1   
+				width = medium
+			)
+			Loan_Amount_Requested
+			(
+				displayname = "Loan Amount Requested"
+				type = INR
+				format = commadotindian
+	 			row = 8
+	 			column = 1   
+				width = medium
+			)
+			Interest_Rate_Offered
+			(
+    			type = percentage
+				displayname = "Interest Rate Offered"
+	 			row = 8
+	 			column = 1   
+				width = medium
+			)
+			Estimated_Monthly_EMI
+			(
+				type = decimal
+	 			row = 8
+	 			column = 1   
+				width = medium
+    			Formula_Properties
+    			(
+    						value =  (input.Loan_Amount_Requested * input.Interest_Rate_Offered) / (12 * input.Application_Submitted_On)
+    						visibility = false
+    			)
+			)
+			SectionSection_G_Loan_Terms_EMI_Computation
+			(
+				type = section
+				displayname = "Section H — Declaration & System-Generated Values"
+				visibility = true
+	 			row = 9
+	 			column = 0   
+				width = medium
+			)
+			Loan_Terms_Display
+			(
+    			type = richtext
+				displayname = "Loan Terms Display"
+				height = 200px
+				toolbar = enable
+				[
+					style, font-color, background-color, link, bullets-and-numbering, 
+					font-size : {1, 2, 3, 4, 5, 6, 7}
+				]
+	 			row = 9
+	 			column = 1   
+				width = medium
+			)
+			Application_Submitted_On
+			(
+    			type = datetime
+				displayname = "Application Submitted On"
+				timedisplayoptions = "hh:mm:ss"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 9
+	 			column = 1   
+				width = medium
+			)
+			QR_Code
+			(
+				type = qrcode
+				displayname = "Application Tracking QR Code"
+				value = "BNK-LN- ${zoho.currentdate}${Loan_Application_ID}"
+	 			row = 9
+	 			column = 2   
+				width = medium
+			)
+			Loan_Application_ID
+			(
+    			type = autonumber
+				displayname = "Loan Application ID"
+				start index = 1
+	 			row = 9
+	 			column = 3   
+				width = medium
+			)
+			must have Applicant_Digital_Signature
+			(
+    			type = signature
+				displayname = "Applicant Digital Signature"
+	 			row = 9
+	 			column = 3   
+				width = medium
+				personal data = true
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+			blueprint components
+			{
+				stages = {"Document Verification","Credit Check","Loan Approval","Created form","Loan Rejected"}
+			}
+		print template
+			{
+				sample
+				{
+							content = {"layout":"1","pageNumberOption":null,"orientation":"landscape","isFooterEnabled":"false","containerStyle":"","mainLayout":[{"elements":[{"type":"columns","element":{"split":"100","id":"u_elem_7923057499999999","elemStyle":"","collayouts":[{"colElements":[{"type":"spacer","element":{"id":"u_elem_7923057025000002","height":"50"}}],"style":""}]}},{"type":"columns","element":{"split":"4,16,80","id":"u_elem_7964270400000001","elemStyle":"","collayouts":[{"colElements":[{"type":"spacer","element":{"id":"u_elem_7982135005","height":"20"}}],"style":""},{"colElements":[{"type":"image","element":{"size":"M","src":"https://static.zohocdn.com/creator/appbuilder/images/print-templates/zoho-logo.1a00f3e563d2ae858d2e6dc29356bb90.png","captionMargin":"0px auto","alt":"","caption":"","id":"u_elem_7964269455000002","align":"center","elemStyle":"border: 0px solid rgb(0, 0, 0); margin: 0px; width: 121px; background: rgba(0, 0, 0, 0); height: 52px","formCompId":""}}],"style":""},{"colElements":[{"type":"spacer","element":{"id":"u_elem_8046740355000001","height":"45"}},{"type":"columns","element":{"split":"80,20","id":"u_elem_82039772650000015","elemStyle":"","collayouts":[{"colElements":[{"type":"text","element":{"id":"u_elem_8109395950000002","fields":[],"content":"<div style=\"background: rgba(0, 0, 0, 0); padding: 0px;\">\n  <h1 style=\"text-align: center; color: rgb(0, 0, 0); font-weight: 400; font-style: normal\">\n    <font style=\"font-family: Lato; font-style: normal; font-weight: bold; font-size: 82px; line-height: 98px; letter-spacing: 3px; color: rgb(130, 134, 139)\">CERTIFICATE<\/font>\n  <\/h1>\n<\/div>"}}],"style":""},{"colElements":[{"type":"spacer","element":{"id":"u_elem_8203976510000001","height":"25"}}],"style":""}]}}],"style":""}]}},{"type":"columns","element":{"split":"33,34,33","id":"u_elem_8109396414999999","elemStyle":"","collayouts":[{"colElements":[{"type":"spacer","element":{"id":"u_elem_81178621400000015","height":"38"}}],"style":""},{"colElements":[{"type":"text","element":{"id":"u_elem_8278369849999999","fields":[],"content":"<div style=\"background: rgba(0, 0, 0, 0); padding: 0px\">\n  <p style=\"text-align: center; color: rgb(0, 0, 0); font-weight: 400; font-style: normal\">\n    <font style=\"font-family: Lato; font-style: normal; font-weight: normal; font-size: 30px; line-height: 36px; letter-spacing: 1.0976px; text-transform: uppercase; color: rgb(130, 134, 139)\">OF PARTICIPATION<\/font>\n  <\/p>\n<\/div>"}}],"style":""},{"colElements":[{"type":"spacer","element":{"id":"u_elem_8122963189999999","height":"38"}}],"style":""}]}},{"type":"columns","element":{"split":"100","id":"u_elem_8351110755000002","elemStyle":"","collayouts":[{"colElements":[{"type":"spacer","element":{"id":"u_elem_835111045","height":"60"}}],"style":""}]}},{"type":"columns","element":{"split":"30,40,30","id":"u_elem_83699664799999995","elemStyle":"","collayouts":[{"colElements":[{"type":"spacer","element":{"id":"u_elem_8372051469999999","height":"26"}}],"style":""},{"colElements":[{"type":"text","element":{"id":"u_elem_8369966230000001","fields":[],"content":"<div style=\"background: rgba(0, 0, 0, 0); padding: 0px\">\n  <p style=\"text-align: center; color: rgb(0, 0, 0); font-weight: 400; font-style: normal\">\n    <font style=\"font-family: Lato; font-style: normal; font-weight: normal; font-size: 21px; line-height: 25px; letter-spacing: 2px; color: rgb(130, 134, 139)\">THIS CERTIFICATE IS PRESENTED TO<\/font>\n  <\/p>\n<\/div>"}}],"style":""},{"colElements":[{"type":"spacer","element":{"id":"u_elem_8377951045000002","height":"26"}}],"style":""}]}},{"type":"columns","element":{"split":"100","id":"u_elem_846027575","elemStyle":"","collayouts":[{"colElements":[{"type":"spacer","element":{"id":"u_elem_8460275150000002","height":"10"}}],"style":""}]}},{"type":"columns","element":{"split":"20,60,20","id":"u_elem_846708429","elemStyle":"","collayouts":[{"colElements":[{"type":"spacer","element":{"id":"u_elem_8471981940000001","height":"26"}}],"style":""},{"colElements":[{"id":"u_elem_16685321991855482","type":"fields","element":{"valueStyle":"width: 50%; text-align: center","valueTextStyle":"font-family: Lato; font-style: normal; font-weight: normal; font-size: 63px; line-height: 76px; text-transform: uppercase; color: rgb(0, 0, 0)","fieldLayoutType":"1","wrapperStyle":"","labelText":"--Select Field--","labelStyle":"width: 50%; display: none","Select_Field":true,"formCompId":"0","labelTextStyle":""}}],"style":""},{"colElements":[{"type":"spacer","element":{"id":"u_elem_8480824694999998","height":"26"}}],"style":""}]}},{"type":"columns","element":{"split":"100","id":"u_elem_8590368579999998","elemStyle":"","collayouts":[{"colElements":[{"type":"spacer","element":{"id":"u_elem_859036808","height":"45"}}],"style":""}]}},{"type":"columns","element":{"split":"11,78,11","id":"u_elem_8614135590000002","elemStyle":"","collayouts":[{"colElements":[{"type":"spacer","element":{"id":"u_elem_861707138","height":"26"}}],"style":""},{"colElements":[{"type":"text","element":{"id":"u_elem_8614134285","fields":[],"content":"<div style=\"background: rgba(0, 0, 0, 0); padding: 0px\">\n  <p style=\"text-align: center; color: rgb(0, 0, 0); font-weight: 400; font-style: normal\">\n    <font style=\"font-family: Lato; font-style: normal; font-weight: normal; font-size: 19px; line-height: 30px; color: rgb(0, 0, 0)\">In recognition of their active participation and completion\n      of the two-day workshop on Design Thinking conducted by\n      our Organisation.<\/font>\n  <\/p>\n<\/div>"}}],"style":""},{"colElements":[{"type":"spacer","element":{"id":"u_elem_863680934","height":"26"}}],"style":""}]}},{"type":"columns","element":{"split":"100","id":"u_elem_876606864","elemStyle":"","collayouts":[{"colElements":[{"type":"spacer","element":{"id":"u_elem_876606667","height":"70"}}],"style":""}]}},{"type":"columns","element":{"split":"75,16,9","id":"u_elem_877571461","elemStyle":"","collayouts":[{"colElements":[{"type":"spacer","element":{"id":"u_elem_8801124195","height":"40"}}],"style":""},{"colElements":[{"type":"image","element":{"size":"M","src":"https://static.zohocdn.com/creator/appbuilder/images/print-templates/Lewis.d48e316ec6c27ce601e795ed81f160ba.png","captionMargin":"0px auto","alt":"","caption":"","id":"u_elem_8775714339999998","align":"left","elemStyle":"border: 0px solid rgb(0, 0, 0); margin: 0px; width: 122px; background: rgba(0, 0, 0, 0); height: 53px","formCompId":""}}],"style":""},{"colElements":[{"type":"spacer","element":{"id":"u_elem_8844708815000001","height":"58"}}],"style":""}]}},{"type":"columns","element":{"split":"30,48,18,4","id":"u_elem_8873015415000001","elemStyle":"","collayouts":[{"colElements":[{"type":"spacer","element":{"id":"u_elem_932494501","height":"40"}}],"style":""},{"colElements":[{"type":"spacer","element":{"id":"u_elem_887301486","height":"24"}},{"type":"text","element":{"id":"u_elem_9070591305000002","fields":[],"content":"<div style=\"background: rgba(0, 0, 0, 0); padding: 0px\">\n  <p style=\"color: rgb(0, 0, 0); font-weight: 400; font-style: normal; text-align: left\">\n    <font style=\"font-family: Lato; font-style: normal; font-weight: bold; font-size: 17px; line-height: 20px; text-transform: uppercase; color: rgb(76, 82, 88)\">Date: 06-Dec-2018<\/font>\n  <\/p>\n<\/div>"}}],"style":""},{"colElements":[{"type":"text","element":{"id":"u_elem_8882372655","fields":[],"content":"<div style=\"background: rgba(0, 0, 0, 0); padding: 0px\">\n  <p style=\"color: rgb(0, 0, 0); font-weight: 400; font-style: normal; text-align: left\">\n    <font style=\"font-family: Lato; font-style: normal; font-weight: bold; font-size: 21px; line-height: 25px; color: rgb(0, 0, 0)\">Edward Lewis<\/font>\n  <\/p>\n<\/div>"}},{"type":"text","element":{"id":"u_elem_907719125","fields":[],"content":"<div style=\"background: rgba(0, 0, 0, 0); padding: 0px\">\n  <p style=\"color: rgb(0, 0, 0); font-weight: 400; font-style: normal; text-align: left\">\n    <font style=\"font-family: Lato; font-style: normal; font-weight: normal; font-size: 14px; line-height: 17px; text-transform: uppercase; color: rgb(76, 82, 88)\">EVENT COORDINATOR<\/font>\n  <\/p>\n<\/div>"}}],"style":""},{"colElements":[{"type":"spacer","element":{"id":"u_elem_8876114555","height":"25"}}],"style":""}]}},{"type":"columns","element":{"split":"100","id":"u_elem_9063103709999999","elemStyle":"","collayouts":[{"colElements":[{"type":"spacer","element":{"id":"u_elem_9063102985000001","height":"44"}}],"style":""}]}}],"id":"1"}],"resize":"a4","templateStyle":"text-align: left; width: 1122.5px; height: 793px; background-size: cover;background-image: url(\"https://static.zohocdn.com/creator/appbuilder/images/print-templates/certificate5.753596de5e229f99f3c4352a96a7fe3c.png\");","isHeaderEnabled":"false","version":"2"}
+				}
+			}
+		}
+	}
+	reports
+	{
+		default list Bank_Loan_Application_Report
+		{
+			displayName = "Bank Loan Application Report"
+			print template = sample
+			show all rows from Bank_Loan_Application    
+			(
+				Email_Address
+				Residential_Address 
+	 			(
+	      			enable = Link_to_Map,Show_As_Text
+	 			)
+				Contact_Number
+				(
+					displayformat = plainnumber 
+				)
+				Applicant_Name 
+				Date_Of_Birth
+				PAN_Number
+				Employment_Type
+				Monthly_Income as "Monthly Income"
+				Existing_Liabilities as "Existing Liabilities"
+				Loan_Type as "Loan Type"
+				Purpose_of_Loan as "Purpose of Loan"
+				Preferred_Callback_Time as "Preferred Callback Time"
+				I_consent_to_a_credit_bureau_check as "I consent to a credit bureau check"
+				Applicant_Photo as "Applicant Photo"
+				Income_Proof_Upload as "Income Proof Upload"
+				Debt_to_Income_Ratio as "Debt-to-Income Ratio"
+				Property_Listing_URL as "Property Listing URL"
+				Co_Applicant_Details.co_applicant_name as "Co-Applicant Details"
+				Property_Video_Walkthrough as "Property Video Walkthrough"
+				Loan_Purpose_Voice_Note as "Loan Purpose Voice Note"
+				Has_Existing_Loan_With_Bank as "Has Existing Loan With Bank"
+				Loan_Amount_Requested as "Loan Amount Requested"
+				Interest_Rate_Offered as "Interest Rate Offered"
+				Estimated_Monthly_EMI
+				Loan_Terms_Display as "Loan Terms Display"
+				Applicant_Digital_Signature as "Applicant Digital Signature"
+				Application_Submitted_On as "Application Submitted On"
+				Loan_Application_ID as "Loan Application ID"
+				QR_Code as "Application Tracking QR Code"
+				Bank_Loan_Application as "Bank Loan Application"
+			)
+		}
+		list All_Loan_Applications_List
+		{
+			displayName = "All_Loan_Applications_List"
+			show all rows from Bank_Loan_Application    
+			(
+				Applicant_Name 
+				Employment_Type
+				Monthly_Income as "Monthly Income"
+				Loan_Type as "Loan Type"
+				Application_Submitted_On as "Application Submitted On"
+			)
+		}
+		spreadsheet Loan_Applications_Spreadsheet
+		{
+			displayName = "Loan_Applications_Spreadsheet"
+			show all rows from Bank_Loan_Application    
+			(
+				Applicant_Name 
+				Date_Of_Birth
+				PAN_Number
+				Email_Address
+				Residential_Address 
+	 			(
+	      			enable = Link_to_Map,Show_As_Text
+	 			)
+				Contact_Number
+				(
+					displayformat = plainnumber 
+				)
+				Employment_Type
+				Monthly_Income as "Monthly Income"
+				Existing_Liabilities as "Existing Liabilities"
+				Loan_Type as "Loan Type"
+				Purpose_of_Loan as "Purpose of Loan"
+				Preferred_Callback_Time as "Preferred Callback Time"
+				I_consent_to_a_credit_bureau_check as "I consent to a credit bureau check"
+				Bank_Loan_Application as "Bank Loan Application"
+				Applicant_Photo as "Applicant Photo"
+				Income_Proof_Upload as "Income Proof Upload"
+				Debt_to_Income_Ratio as "Debt-to-Income Ratio"
+				Property_Listing_URL as "Property Listing URL"
+				Property_Video_Walkthrough as "Property Video Walkthrough"
+				Loan_Purpose_Voice_Note as "Loan Purpose Voice Note"
+				Has_Existing_Loan_With_Bank as "Has Existing Loan With Bank"
+				Loan_Amount_Requested as "Loan Amount Requested"
+				Interest_Rate_Offered as "Interest Rate Offered"
+				Estimated_Monthly_EMI
+				Loan_Terms_Display as "Loan Terms Display"
+				Application_Submitted_On as "Application Submitted On"
+				QR_Code as "Application Tracking QR Code"
+				Loan_Application_ID as "Loan Application ID"
+				Applicant_Digital_Signature as "Applicant Digital Signature"
+				Bank_Loan_Application.Loan_Type as "Loan Type"
+			)
+		}
+		kanban Loan_Status_Kanban
+		{
+			displayName = "Loan_Status_Kanban"
+			show all rows from Bank_Loan_Application    
+			(
+				Applicant_Name 
+				Date_Of_Birth
+				PAN_Number
+				Email_Address
+				Residential_Address 
+	 			(
+	      			enable = Link_to_Map,Show_As_Text
+	 			)
+				Contact_Number
+				(
+					displayformat = plainnumber 
+				)
+				Employment_Type
+				Monthly_Income as "Monthly Income"
+				Existing_Liabilities as "Existing Liabilities"
+				Loan_Type as "Loan Type"
+				Purpose_of_Loan as "Purpose of Loan"
+				Preferred_Callback_Time as "Preferred Callback Time"
+				I_consent_to_a_credit_bureau_check as "I consent to a credit bureau check"
+				Bank_Loan_Application as "Bank Loan Application"
+				Applicant_Photo as "Applicant Photo"
+				Income_Proof_Upload as "Income Proof Upload"
+				Debt_to_Income_Ratio as "Debt-to-Income Ratio"
+				Property_Listing_URL as "Property Listing URL"
+				Property_Video_Walkthrough as "Property Video Walkthrough"
+				Loan_Purpose_Voice_Note as "Loan Purpose Voice Note"
+				Has_Existing_Loan_With_Bank as "Has Existing Loan With Bank"
+				Loan_Amount_Requested as "Loan Amount Requested"
+				Interest_Rate_Offered as "Interest Rate Offered"
+				Estimated_Monthly_EMI
+				Loan_Terms_Display as "Loan Terms Display"
+				Application_Submitted_On as "Application Submitted On"
+				QR_Code as "Application Tracking QR Code"
+				Loan_Application_ID as "Loan Application ID"
+				Applicant_Digital_Signature as "Applicant Digital Signature"
+			)
+			options
+			(
+	 			display field = Loan_Type
+	 			othercolumn = "Deleted & Others"
+				sort order  = ascending
+	 		)
+		}
+		calendar Callback_Schedule_Calendar
+		{
+			displayName = "Callback_Schedule_Calendar"
+			show all rows from Bank_Loan_Application    
+			(
+				Applicant_Digital_Signature as "Applicant Digital Signature"
+				Contact_Number
+				(
+					displayformat = plainnumber 
+				)
+				Applicant_Name 
+				Application_Submitted_On as "Application Submitted On"
+				Modified_Time as "Modified Time"
+				Loan_Application_ID as "Loan Application ID"
+				QR_Code as "Application Tracking QR Code"
+				Bank_Loan_Application as "Bank Loan Application"
+				Residential_Address 
+	 			(
+	      			enable = Link_to_Map,Show_As_Text
+	 			)
+				Date_Of_Birth
+				PAN_Number
+				Employment_Type
+				Monthly_Income as "Monthly Income"
+				Property_Video_Walkthrough as "Property Video Walkthrough"
+				Existing_Liabilities as "Existing Liabilities"
+				Loan_Purpose_Voice_Note as "Loan Purpose Voice Note"
+				Has_Existing_Loan_With_Bank as "Has Existing Loan With Bank"
+				Loan_Amount_Requested as "Loan Amount Requested"
+				Email_Address
+				Interest_Rate_Offered as "Interest Rate Offered"
+				Loan_Type as "Loan Type"
+				Purpose_of_Loan as "Purpose of Loan"
+				Preferred_Callback_Time as "Preferred Callback Time"
+				Estimated_Monthly_EMI
+				I_consent_to_a_credit_bureau_check as "I consent to a credit bureau check"
+				Applicant_Photo as "Applicant Photo"
+				Income_Proof_Upload as "Income Proof Upload"
+				Debt_to_Income_Ratio as "Debt-to-Income Ratio"
+				Property_Listing_URL as "Property Listing URL"
+				Loan_Terms_Display as "Loan Terms Display"
+			)
+			options
+			(
+				display field = Preferred_Callback_Time
+				start date = Application_Submitted_On
+				end date = Modified_Time
+			)
+		}
+		map Applicant_Residential_Map
+		{
+			displayName = "Applicant_Residential_Map"
+			show all rows from Bank_Loan_Application    
+			(
+				Applicant_Name 
+				Date_Of_Birth
+				PAN_Number
+				Email_Address
+				Residential_Address 
+	 			(
+	      			enable = Link_to_Map,Show_As_Text
+	 			)
+				Contact_Number
+				(
+					displayformat = plainnumber 
+				)
+				Employment_Type
+				Monthly_Income as "Monthly Income"
+				Existing_Liabilities as "Existing Liabilities"
+				Loan_Type as "Loan Type"
+				Purpose_of_Loan as "Purpose of Loan"
+				Preferred_Callback_Time as "Preferred Callback Time"
+				I_consent_to_a_credit_bureau_check as "I consent to a credit bureau check"
+				Bank_Loan_Application as "Bank Loan Application"
+				Applicant_Photo as "Applicant Photo"
+				Income_Proof_Upload as "Income Proof Upload"
+				Debt_to_Income_Ratio as "Debt-to-Income Ratio"
+				Property_Listing_URL as "Property Listing URL"
+				Property_Video_Walkthrough as "Property Video Walkthrough"
+				Loan_Purpose_Voice_Note as "Loan Purpose Voice Note"
+				Has_Existing_Loan_With_Bank as "Has Existing Loan With Bank"
+				Loan_Amount_Requested as "Loan Amount Requested"
+				Interest_Rate_Offered as "Interest Rate Offered"
+				Estimated_Monthly_EMI
+				Loan_Terms_Display as "Loan Terms Display"
+				Application_Submitted_On as "Application Submitted On"
+				QR_Code as "Application Tracking QR Code"
+				Loan_Application_ID as "Loan Application ID"
+				Applicant_Digital_Signature as "Applicant Digital Signature"
+			)
+			options
+			(
+	 			display field = Residential_Address
+	 		)
+		}
+		timeline Application_Activity_Timeline
+		{
+			displayName = "Application_Activity_Timeline"
+			show all rows from Bank_Loan_Application    
+			(
+				Applicant_Digital_Signature as "Applicant Digital Signature"
+				Contact_Number
+				(
+					displayformat = plainnumber 
+				)
+				Applicant_Name 
+				Application_Submitted_On as "Application Submitted On"
+				Added_Time as "Added Time"
+				Loan_Application_ID as "Loan Application ID"
+				QR_Code as "Application Tracking QR Code"
+				Bank_Loan_Application as "Bank Loan Application"
+				Residential_Address 
+	 			(
+	      			enable = Link_to_Map,Show_As_Text
+	 			)
+				Date_Of_Birth
+				PAN_Number
+				Employment_Type
+				Monthly_Income as "Monthly Income"
+				Property_Video_Walkthrough as "Property Video Walkthrough"
+				Existing_Liabilities as "Existing Liabilities"
+				Loan_Purpose_Voice_Note as "Loan Purpose Voice Note"
+				Has_Existing_Loan_With_Bank as "Has Existing Loan With Bank"
+				Loan_Amount_Requested as "Loan Amount Requested"
+				Email_Address
+				Interest_Rate_Offered as "Interest Rate Offered"
+				Loan_Type as "Loan Type"
+				Purpose_of_Loan as "Purpose of Loan"
+				Preferred_Callback_Time as "Preferred Callback Time"
+				Estimated_Monthly_EMI
+				I_consent_to_a_credit_bureau_check as "I consent to a credit bureau check"
+				Applicant_Photo as "Applicant Photo"
+				Income_Proof_Upload as "Income Proof Upload"
+				Debt_to_Income_Ratio as "Debt-to-Income Ratio"
+				Property_Listing_URL as "Property Listing URL"
+				Loan_Terms_Display as "Loan Terms Display"
+			)
+			options
+			(
+				display field = Application_Submitted_On
+				start date = Application_Submitted_On
+				end date = Added_Time
+			)
+		}
+	}
+	pages
+	{
+		page dashboard
+		{
+			displayname = "dashboard"
+			Content="<zml    \t\t\n\t\t\n\t\t\n\t\t\twebDeviceConfig='{\"layout\":{\"displayType\":\"plain\",\"design\":\"fluid\",\"style\":\"padding-right:0px;padding-top:0px;padding-bottom:0px;padding-left:0px;\"}}'\n\t\t\n\t\t\n>\n\t<layout>\n\t<row>\n\t<column\n   \t\t width='50%'\n   \t>\n\t<panel elementName='Command_Center_Main_Panel'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmargin = '0px'\n\tpadding = '0px'\n\tcolor = '#FF4C2F'\n\tsize = '36px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n    borderColor = '#FF4C2F'\n    borderWidth = '0px'\n\n\t  value = 'thisapp.Bank_Loan_Application.Application_Submitted_On.distinctCount'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmargin = '0px'\n\tpadding = '0px'\n\tcolor = '#333333'\n\tsize = '16px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\n\n\n    borderColor = '#333333'\n    borderWidth = '0px'\n\n\t  value = 'total Loan Applicants'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column><column\n   \t\t width='50%'\n   \t>\n\t<search \n\telementName='Search'\n\tpaddingTop = '40px'\n\tpaddingLeft = '80px'\n\tpaddingRight = '80px'\n\tpaddingBottom = '40px'\n\tbgtype = 'none'\n\tbgColor = '#FFFFFF'\n\n\tshape = 'rounded'\n\tresultComponent = 'report'\n\tlinkName = 'Bank_Loan_Application_Report'\n\ttarget = 'same-window'\n\tcriteriaString = 'Applicant_Name.last_name == input.searchString &amp;&amp; Loan_Application_ID == input.searchString'\n\tfontFamily = 'default'\n\tallowPublicAccess = 'true'\n\tappLinkName = 'thisapp'\n\tstyle = '4'\n\tplaceholder = 'Enter value'\n\n>\n<searchbar color=\"#000000\" bgColor=\"#FFFFFF\" fontSize=\"15px\"\n/><searchbutton color=\"#FFFFFF\" bgColor=\"#0072F4\" \nfontSize=\"15px\"  /></search>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<board\n    \n\tbgColor = '#FFFFFF'\n        bgColorType = 'solid'\n\tpadding = '0px'\nelementName='Loan_Status_Board'\n    layoutType = 'grid'\n        items = '1'\n    appLinkName = 'thisapp'\n    formLinkName = 'Bank_Loan_Application'\n    rankBy = 'ID'\n    rankOrder = 'highestToLowest'\n    rankAggregate = 'count'\n    limit = '3'\n    groupBy = 'Loan_Type'\n>\n<boardHeader>\n    <pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpaddingTop = '14px'\n\tpaddingLeft = '15px'\n\tpaddingRight = '15px'\n\tpaddingBottom = '14px'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<text \n\n\tmargin = '0px'\n\tpadding = '0px'\n\tcolor = '#000000'\n\tsize = '17px'\n\tbold = 'true' \n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\n\n\n    borderColor = '#000000'\n    borderWidth = '0px'\n\n\t  value = 'Types of loan'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</boardHeader>\n<boardLayout\n                paddingRight = '15px'\n                paddingBottom = '14px'\n                paddingLeft = '15px'\n                paddingTop = '2px'\n                itemGap = '10px'\n>\n    <pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpaddingLeft = '20px'\n\tpaddingRight = '20px'\n\n    borderColor = '#F2F2F2'\n    borderWidth = '1px'\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n    \tcornerRadius = '12px'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpaddingTop = '10px'\n\tpaddingBottom = '10px'\n\n\t\twidth = '70%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<text \n\n\tcolor = '#000000'\n\tsize = '19px'\n\tbold = 'true' \n\ttype = 'boardData'\n\n\n    lineHeight = '26'\n    numOfLines = '1'\n\n\n\n\n\n\t  value = 'rank'\n>\n</text>\n\n</pc><pc \n\t\n>\n\t<image  \n\t\tmarginLeft = '20px'\n\n\tcolor = '#000000'\n\tbgColor = '#F7F7FB'\n\twidth = '36px'\n\theight = '36px'\n\ttype = 'icon'\n\tvalue = 'education-books-46'\n\tsize = '20px'\n\tcornerRadius = '18px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\n>\n\t<text \n\n\tmarginLeft = '15px'\n\tcolor = '#000000'\n\tsize = '16px'\n\ttype = 'boardData'\n\n\n    lineHeight = '22'\n    numOfLines = '1'\n\n\n\n\n\n\t  value = 'groupedField'\n>\n</text>\n\n</pc>\n</pr>\n</pc><pc \n\t\tpaddingTop = '10px'\n\tpaddingBottom = '10px'\n\n\t\twidth = '30%'\n\t\thAlign = 'right'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<text \n\n\tcolor = 'theme'\n\tsize = '17px'\n\tbold = 'true' \n\ttype = 'boardData'\n\n\n    lineHeight = '23'\n    numOfLines = '1'\n\n\n\n\n\n\t  value = 'rankAggregate'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</boardLayout>\n</board>\n</column>\n</row><row>\n\t<column\n   \t\t width='50%'\n   \t>\n\t<chart \n\telementName='LoanType_Distribution_Chart_Widget'\n\n\ttype = 'Pie'\n\txtitle = 'Loan per person'\n\tytitle = 'Application per person'\n\tbgColor = '#FFFFFF'\n\ttheme = 'theme1'\n\tlegendPos = 'right.center'\n\theightType = 'auto'\n\theightValue = '300px'\n\tappLinkName = 'thisapp'\n\tformLinkName = 'Bank_Loan_Application'\n\txfield = 'Loan_Type'\n\tyfields = 'value:Application_Submitted_On'\n\tshowDataLabel = 'true'\n/>\n\n</column><column\n   \t\t width='50%'\n   \t>\n\t<gauge \n\telementName='Monthly_Disbursal_Target_Gauge'\n\n\tcolor = '#000000'\n\tsize = '20px'\n\tfontFamily = 'default' \n\tbgColor = '#FFFFFF'\n\ttheme = '#FF7B19'\n\tdisplayType = 'actual'\n\ttype = '4'\n\tfilledColor = '#FF7B19'\n\tnonFilledColor = '#F5F5F5'\n\tvalue = 'thisapp.Bank_Loan_Application.Purpose_of_Loan.distinctCount'\n>\n<maximumvalue size=\"15px\" color=\"#7F7F7F\" value=\"1\" \n/>\n</gauge>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<form \n\telementName='Quick_Counter_Loan_Intake_Form'\n\n\tappLinkName = 'thisapp'\n\tlinkName = 'Bank_Loan_Application'\n\theightType = 'auto'\n\turlType = 'form'\n\t\turlAppLinkName = 'thisapp'\n\t\tzc_NextUrl = '#Form:Bank_Loan_Application'\n\t\tzc_OpenUrlIn = 'new window'\n\tzc_SuccMsg = 'Your Application is being viewed '\n\tzc_ResetVal = 'Reset'\n\tzc_Header = 'false'\n\tzc_SubmitVal = 'Submit'\n/> \n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<panel elementName='Full_Loan_Applications_Report'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<button \n\t\tmargin = '0px'\n\tpaddingTop = '12px'\n\tpaddingLeft = '15px'\n\tpaddingRight = '15px'\n\tpaddingBottom = '12px'\n\n    action = 'OpenReport'\n\t\tcomponentLinkName = 'Loan_Applications_Spreadsheet'\n\t\ttarget = 'new-window'\n\tcolor = '#FFFFFF'\n\tsize = '16px'\n    borderColor = '#FFFFFF'\n    borderWidth = '0px'\n\ttext ='Full_Loan_Applications_Report'\n\t\tbgColor = '#0072F4'\n\t\tcornerRadius = '3px' \n/>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<embed \n\telementName='Embed'\n\n\thAlign = 'center'\n\turl = 'https://creator.zoho.in/appbuilder/jaayish.ev.2024.cse_rajal817/bank-loan-application/pagebuilder/dashboard/edit'\n\twidth = '300'\n\theight = '150'\n/>\n\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<panel elementName='Send_Document_Reminder_Button'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\tvAlign = 'middle'\n>\n\t<button \n\t\tmargin = '0px'\n\tpaddingTop = '12px'\n\tpaddingLeft = '15px'\n\tpaddingRight = '15px'\n\tpaddingBottom = '12px'\n\n    action = 'OpenForm'\n\t\tparameters = 'Missing Details' \n\t\tcomponentLinkName = 'Bank_Loan_Application'\n\t\ttarget = 'new-window'\n\tcolor = '#FFFFFF'\n\tsize = '16px'\n    borderColor = '#FFFFFF'\n    borderWidth = '0px'\n\ttext ='Reminder'\n\t\tbgColor = 'theme'\n\t\tcornerRadius = '60px' \n/>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column>\n</row>\n</layout>\n</zml>"
+		}
+	}
+
+
+
+
+		workflow
+		{
+		form
+		{
+			Send_Email_Form_Propertie as "Send Email - Form Properties"
+			{
+				type =  presuccess
+				form = Bank_Loan_Application
+				on start
+				{
+					actions 
+					{
+						sendmail
+						(
+							from : "zoho.adminuserid"
+							to : Email_Address
+							subject : "Bank Loan Application : New entry added"
+							message : "<div>Hello ${Applicant_Name},<br><br>A new entry added in 'Bank_Loan_Application' form of Bank Loan Application application.<br></div>"
+						)
+					}
+				}
+			}
+			On_Application_Submit_Wor as "On_Application_Submit_Workflow"
+			{
+				type =  form
+				form = Bank_Loan_Application
+
+				record event = on add
+
+				on success
+				{
+					actions 
+					{
+						sendmail
+						(
+							from : "zoho.adminuserid"
+							to : Email_Address
+							subject : "Record Added"
+							message : "<div>${zoho.loginuserid} has added a record in form Bank Loan Application<br></div>"
+						)
+					}
+				}
+
+			}
+		}
+
+		schedule
+		{
+			Daily_Pending_Document_Re as "Daily_Pending_Document_Reminder_Schedule"
+			{
+				type =  schedule
+					status = inactive
+				start = "2026-08-21 16:18:00"
+				time zone = "Asia/Kolkata"
+				on start
+				{
+					actions 
+					{
+						sendmail
+						(
+							from : "zoho.adminuserid"
+							to : "jaayish.ev.2024.cse@rajalakshmi.edu.in"
+							subject : "Task"
+							message : "<div>${zoho.adminuserid} Select the applicants<br></div>"
+							attachments : view : All_Loan_Applications_List as PDF
+						)
+					}
+					actions 
+					{
+					on load
+					(
+						sendmail
+										[
+											from :zoho.loginuserid
+											to :zoho.loginuser
+											subject :"Attach the missing Document"
+											message :"<div>" + zoho.loginuserid + "<br></div>"
+										]
+					)
+					}
+				}
+			}
+		}
+
+		approval
+		{
+			HighValue_Loan_Approval as "HighValue_Loan_Approval"
+			{
+				type =  approval
+				form = Bank_Loan_Application
+				display fields = [Applicant_Name,Date_Of_Birth,PAN_Number,Email_Address,Residential_Address,Contact_Number,Employment_Type]
+				on start
+				{
+				}
+				on level 1
+				{
+					on approve 
+					{
+						actions  (Loan_Amount_Requested > 1000)
+						{
+							sendmail
+							(
+								from : "zoho.loginuserid"
+								to : approver.submitter
+								subject : "Approval Request"
+								message : "Your request has been approved."
+							)
+						}
+					}
+					on reject
+					{
+
+						actions 
+						{
+							sendmail
+							(
+								from : "zoho.loginuserid"
+								to : approver.submitter
+								subject : "Approval Request"
+								message : "<div>Your request has been rejected.<br></div>"
+							)
+						}
+					}
+				}
+			}
+		}
+
+		blueprint
+		{
+    			Loan_Lifecycle_Blueprint as "Loan_Lifecycle_Blueprint"
+    			{
+        			type = Blueprint
+        			form = Bank_Loan_Application
+        			start
+        			{
+            			start stage = "Created form"
+            			chart data
+            			{
+                			from port : B
+                			to port   : T3
+                			position  : "0 0"
+                			path      : [27.849999999999994,36.84,27.849999999999994,46.84,27.849999999999994,50.92,27.85,50.92,27.85,55,27.85,65]
+            			}
+        			}
+        			stages
+        			{
+           			"Document Verification"
+           			{
+               			chart data
+               			{
+                   			position : "-328 180.6334448160535"
+               			}
+           			}
+           			"Credit Check"
+           			{
+               			chart data
+               			{
+                   			position : "-32 318.6334448160535"
+               			}
+           			}
+           			"Loan Approval"
+           			{
+               			chart data
+               			{
+                   			position : "-304 374.6334448160535"
+               			}
+           			}
+           			"Created form"
+           			{
+               			chart data
+               			{
+                   			position : "-35.00153300063815 65"
+               			}
+           			}
+           			"Loan Rejected"
+           			{
+               			chart data
+               			{
+                   			position : "222 371.63344481605355"
+               			}
+           			}
+        			}
+        			transitions
+        			{
+    				Accepted as "Accepted"
+    				{
+         				type = normal
+         				from stage = "Credit Check"
+         				to stage = "Loan Approval"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+         				chart data
+         				{
+             				from port : B2
+             				to port   : R1
+             				path      : [12.458690050555639,370.2412746112751,12.458690050555639,380.2412746112751,12.458690050555639,400.4373597136643,-74.65362667379107,400.4373597136643,-161.76594339813778,400.4373597136643,-171.76594339813778,400.4373597136643]
+        				}
+  				}
+    				Document_Verification_Suc as "Document Verification Successful"
+    				{
+         				type = normal
+         				from stage = "Document Verification"
+         				to stage = "Credit Check"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+         				chart data
+         				{
+             				from port : B3
+             				to port   : T3
+             				path      : [-236.64099019272123,232.24127461127512,-236.64099019272123,242.24127461127512,-236.64099019272123,275.4373597136643,29.93803507583346,275.4373597136643,29.93803507583346,308.6334448160535,29.93803507583346,318.6334448160535]
+        				}
+  				}
+    				No_proper_Document as "No proper Document"
+    				{
+         				type = normal
+         				from stage = "Document Verification"
+         				to stage = "Created form"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+         				chart data
+         				{
+             				from port : R1
+             				to port   : R1
+             				path      : [-145.28198038544244,206.4373597136643,-135.28198038544244,206.4373597136643,100.70153300063815,206.4373597136643,100.70153300063815,148.62063730563756,100.70153300063815,90.80391489761081,90.70153300063815,90.80391489761081]
+        				}
+  				}
+    				Process as "Process"
+    				{
+         				type = normal
+         				from stage = "Created form"
+         				to stage = "Document Verification"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+         				chart data
+         				{
+             				from port : B3
+             				to port   : T3
+             				path      : [27.85,116.60782979522162,27.85,126.60782979522162,27.85,148.62063730563756,-236.64099019272123,148.62063730563756,-236.64099019272123,170.6334448160535,-236.64099019272123,180.6334448160535]
+        				}
+  				}
+    				Rejected as "Rejected"
+    				{
+         				type = normal
+         				from stage = "Credit Check"
+         				to stage = "Loan Rejected"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+         				chart data
+         				{
+             				from port : B3
+             				to port   : L1
+             				path      : [29.93803507583346,370.2412746112751,29.93803507583346,380.2412746112751,29.93803507583346,397.43735971366436,120.96901753791673,397.43735971366436,212,397.43735971366436,222,397.43735971366436]
+        				}
+  				}
+        			}
+    			}
+		}
+
+
+	}
+	share_settings
+	{
+			"Read"
+			{
+				name = "Read"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have read permission for all components\n"
+			}
+			"Write"
+			{
+				name = "Write"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have write permission for all components\n"
+			}
+			"Developer"
+			{
+				name = "Developer"
+				type = Developer
+				permissions = {Chat:false, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Developer Profile\n"
+			}
+			"Administrator"
+			{
+				name = "Administrator"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have all the permissions.\n"
+			}
+			"Customer"
+			{
+				name = "Customer"
+				type = Customer_Portal
+				permissions = {Chat:false, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This is the default profile having only add and view permission.\n"
+			}
+			roles
+			{
+				"CEO"
+				{
+					description = "User belonging to this role can access data of all other users."
+				}
+			}
+	}
+
+
+	web
+	{
+		forms
+		{
+			form Bank_Loan_Application
+			{
+				label placement = left
+			}
+		}
+		reports
+		{
+			report Bank_Loan_Application_Report
+			{
+				quickview
+				(
+					layout
+					(
+						displaylayout = "classic"
+						datablock1
+						(
+							fields
+							(
+								Applicant_Name
+								Employment_Type
+								Application_Submitted_On as "Application Submitted On"
+								Loan_Type as "Loan Type"
+								Monthly_Income as "Monthly Income"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Email_Address
+								Residential_Address
+								Contact_Number
+								Applicant_Name
+								Date_Of_Birth
+								PAN_Number
+								Employment_Type
+								Monthly_Income as "Monthly Income"
+								Existing_Liabilities as "Existing Liabilities"
+								Loan_Type as "Loan Type"
+								Purpose_of_Loan as "Purpose of Loan"
+								Preferred_Callback_Time as "Preferred Callback Time"
+								I_consent_to_a_credit_bureau_check as "I consent to a credit bureau check"
+								Applicant_Photo as "Applicant Photo"
+								Income_Proof_Upload as "Income Proof Upload"
+								Debt_to_Income_Ratio as "Debt-to-Income Ratio"
+								Property_Listing_URL as "Property Listing URL"
+								Co_Applicant_Details.co_applicant_name as "Co-Applicant Details"
+								Property_Video_Walkthrough as "Property Video Walkthrough"
+								Loan_Purpose_Voice_Note as "Loan Purpose Voice Note"
+								Has_Existing_Loan_With_Bank as "Has Existing Loan With Bank"
+								Loan_Amount_Requested as "Loan Amount Requested"
+								Interest_Rate_Offered as "Interest Rate Offered"
+								Estimated_Monthly_EMI
+								Loan_Terms_Display as "Loan Terms Display"
+								Applicant_Digital_Signature as "Applicant Digital Signature"
+								Application_Submitted_On as "Application Submitted On"
+								Loan_Application_ID as "Loan Application ID"
+								QR_Code as "Application Tracking QR Code"
+								Bank_Loan_Application as "Bank Loan Application"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Loan_Applications_List
+			{
+				quickview
+				(
+					layout
+					(
+						displaylayout = "classic"
+						datablock1
+						(
+							fields
+							(
+								Applicant_Name
+								Employment_Type
+								Loan_Type as "Loan Type"
+								Monthly_Income as "Monthly Income"
+								Application_Submitted_On as "Application Submitted On"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Applicant_Name
+								Employment_Type
+								Monthly_Income as "Monthly Income"
+								Loan_Type as "Loan Type"
+								Application_Submitted_On as "Application Submitted On"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Loan_Applications_Spreadsheet
+			{
+				quickview
+				(
+					layout
+					(
+						displaylayout = "classic"
+		 				type = -3
+						datablock1
+						(
+							layout type = -3
+							fields
+							(
+								Loan_Terms_Display as "Loan Terms Display"
+								Bank_Loan_Application.Loan_Type as "Loan Type"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Applicant_Name
+								Date_Of_Birth
+								PAN_Number
+								Email_Address
+								Residential_Address
+								Contact_Number
+								Employment_Type
+								Monthly_Income as "Monthly Income"
+								Existing_Liabilities as "Existing Liabilities"
+								Loan_Type as "Loan Type"
+								Purpose_of_Loan as "Purpose of Loan"
+								Preferred_Callback_Time as "Preferred Callback Time"
+								I_consent_to_a_credit_bureau_check as "I consent to a credit bureau check"
+								Bank_Loan_Application as "Bank Loan Application"
+								Applicant_Photo as "Applicant Photo"
+								Income_Proof_Upload as "Income Proof Upload"
+								Debt_to_Income_Ratio as "Debt-to-Income Ratio"
+								Property_Listing_URL as "Property Listing URL"
+								Property_Video_Walkthrough as "Property Video Walkthrough"
+								Loan_Purpose_Voice_Note as "Loan Purpose Voice Note"
+								Has_Existing_Loan_With_Bank as "Has Existing Loan With Bank"
+								Loan_Amount_Requested as "Loan Amount Requested"
+								Interest_Rate_Offered as "Interest Rate Offered"
+								Estimated_Monthly_EMI
+								Loan_Terms_Display as "Loan Terms Display"
+								Application_Submitted_On as "Application Submitted On"
+								QR_Code as "Application Tracking QR Code"
+								Loan_Application_ID as "Loan Application ID"
+								Applicant_Digital_Signature as "Applicant Digital Signature"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Loan_Status_Kanban
+			{
+				quickview
+				(
+					layout
+					(
+						displaylayout = "classic"
+		 				type = 1
+						datablock1
+						(
+							layout type = 1
+							fields
+							(
+								Applicant_Name
+								Date_Of_Birth
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Applicant_Name
+								Date_Of_Birth
+								PAN_Number
+								Email_Address
+								Residential_Address
+								Contact_Number
+								Employment_Type
+								Monthly_Income as "Monthly Income"
+								Existing_Liabilities as "Existing Liabilities"
+								Loan_Type as "Loan Type"
+								Purpose_of_Loan as "Purpose of Loan"
+								Preferred_Callback_Time as "Preferred Callback Time"
+								I_consent_to_a_credit_bureau_check as "I consent to a credit bureau check"
+								Bank_Loan_Application as "Bank Loan Application"
+								Applicant_Photo as "Applicant Photo"
+								Income_Proof_Upload as "Income Proof Upload"
+								Debt_to_Income_Ratio as "Debt-to-Income Ratio"
+								Property_Listing_URL as "Property Listing URL"
+								Property_Video_Walkthrough as "Property Video Walkthrough"
+								Loan_Purpose_Voice_Note as "Loan Purpose Voice Note"
+								Has_Existing_Loan_With_Bank as "Has Existing Loan With Bank"
+								Loan_Amount_Requested as "Loan Amount Requested"
+								Interest_Rate_Offered as "Interest Rate Offered"
+								Estimated_Monthly_EMI
+								Loan_Terms_Display as "Loan Terms Display"
+								Application_Submitted_On as "Application Submitted On"
+								QR_Code as "Application Tracking QR Code"
+								Loan_Application_ID as "Loan Application ID"
+								Applicant_Digital_Signature as "Applicant Digital Signature"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Callback_Schedule_Calendar
+			{
+				quickview
+				(
+					layout
+					(
+						displaylayout = "classic"
+		 				type = 1
+						datablock1
+						(
+							layout type = 1
+							fields
+							(
+								Preferred_Callback_Time as "Preferred Callback Time"
+								Application_Submitted_On as "Application Submitted On"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Applicant_Digital_Signature as "Applicant Digital Signature"
+								Contact_Number
+								Application_Submitted_On as "Application Submitted On"
+								Modified_Time as "Modified Time"
+								Loan_Application_ID as "Loan Application ID"
+								Applicant_Name
+								QR_Code as "Application Tracking QR Code"
+								Bank_Loan_Application as "Bank Loan Application"
+								Date_Of_Birth
+								PAN_Number
+								Employment_Type
+								Monthly_Income as "Monthly Income"
+								Property_Video_Walkthrough as "Property Video Walkthrough"
+								Existing_Liabilities as "Existing Liabilities"
+								Loan_Purpose_Voice_Note as "Loan Purpose Voice Note"
+								Has_Existing_Loan_With_Bank as "Has Existing Loan With Bank"
+								Loan_Amount_Requested as "Loan Amount Requested"
+								Email_Address
+								Interest_Rate_Offered as "Interest Rate Offered"
+								Loan_Type as "Loan Type"
+								Residential_Address
+								Purpose_of_Loan as "Purpose of Loan"
+								Preferred_Callback_Time as "Preferred Callback Time"
+								Estimated_Monthly_EMI
+								I_consent_to_a_credit_bureau_check as "I consent to a credit bureau check"
+								Applicant_Photo as "Applicant Photo"
+								Income_Proof_Upload as "Income Proof Upload"
+								Debt_to_Income_Ratio as "Debt-to-Income Ratio"
+								Property_Listing_URL as "Property Listing URL"
+								Loan_Terms_Display as "Loan Terms Display"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Applicant_Residential_Map
+			{
+				quickview
+				(
+					layout
+					(
+						displaylayout = "classic"
+		 				type = 1
+						datablock1
+						(
+							layout type = 1
+							fields
+							(
+								Applicant_Name
+								Date_Of_Birth
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Applicant_Name
+								Date_Of_Birth
+								PAN_Number
+								Email_Address
+								Residential_Address
+								Contact_Number
+								Employment_Type
+								Monthly_Income as "Monthly Income"
+								Existing_Liabilities as "Existing Liabilities"
+								Loan_Type as "Loan Type"
+								Purpose_of_Loan as "Purpose of Loan"
+								Preferred_Callback_Time as "Preferred Callback Time"
+								I_consent_to_a_credit_bureau_check as "I consent to a credit bureau check"
+								Bank_Loan_Application as "Bank Loan Application"
+								Applicant_Photo as "Applicant Photo"
+								Income_Proof_Upload as "Income Proof Upload"
+								Debt_to_Income_Ratio as "Debt-to-Income Ratio"
+								Property_Listing_URL as "Property Listing URL"
+								Property_Video_Walkthrough as "Property Video Walkthrough"
+								Loan_Purpose_Voice_Note as "Loan Purpose Voice Note"
+								Has_Existing_Loan_With_Bank as "Has Existing Loan With Bank"
+								Loan_Amount_Requested as "Loan Amount Requested"
+								Interest_Rate_Offered as "Interest Rate Offered"
+								Estimated_Monthly_EMI
+								Loan_Terms_Display as "Loan Terms Display"
+								Application_Submitted_On as "Application Submitted On"
+								QR_Code as "Application Tracking QR Code"
+								Loan_Application_ID as "Loan Application ID"
+								Applicant_Digital_Signature as "Applicant Digital Signature"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Application_Activity_Timeline
+			{
+				quickview
+				(
+					layout
+					(
+						displaylayout = "classic"
+		 				type = 1
+						datablock1
+						(
+							layout type = 1
+							fields
+							(
+								Contact_Number
+								Application_Submitted_On as "Application Submitted On"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Applicant_Digital_Signature as "Applicant Digital Signature"
+								Contact_Number
+								Application_Submitted_On as "Application Submitted On"
+								Added_Time as "Added Time"
+								Loan_Application_ID as "Loan Application ID"
+								Applicant_Name
+								QR_Code as "Application Tracking QR Code"
+								Bank_Loan_Application as "Bank Loan Application"
+								Date_Of_Birth
+								PAN_Number
+								Employment_Type
+								Monthly_Income as "Monthly Income"
+								Property_Video_Walkthrough as "Property Video Walkthrough"
+								Existing_Liabilities as "Existing Liabilities"
+								Loan_Purpose_Voice_Note as "Loan Purpose Voice Note"
+								Has_Existing_Loan_With_Bank as "Has Existing Loan With Bank"
+								Loan_Amount_Requested as "Loan Amount Requested"
+								Email_Address
+								Interest_Rate_Offered as "Interest Rate Offered"
+								Loan_Type as "Loan Type"
+								Residential_Address
+								Purpose_of_Loan as "Purpose of Loan"
+								Preferred_Callback_Time as "Preferred Callback Time"
+								Estimated_Monthly_EMI
+								I_consent_to_a_credit_bureau_check as "I consent to a credit bureau check"
+								Applicant_Photo as "Applicant Photo"
+								Income_Proof_Upload as "Income Proof Upload"
+								Debt_to_Income_Ratio as "Debt-to-Income Ratio"
+								Property_Listing_URL as "Property Listing URL"
+								Loan_Terms_Display as "Loan Terms Display"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+		}
+		menu
+		{
+			space Space
+			{
+				displayname = "Space"
+				icon = "objects-spaceship"
+
+				section Bank_Loan_Application
+				{
+					displayname = "Bank Loan Application"
+					icon = "business-handout"
+					form  Bank_Loan_Application
+					{
+						icon = "business-handout"
+					}
+					report Bank_Loan_Application_Report
+					{
+						icon = "tech-desktop"
+					}
+					report All_Loan_Applications_List
+					{
+						icon = "business-handout"
+					}
+					report Loan_Applications_Spreadsheet
+					{
+						icon = "business-handout"
+					}
+					report Loan_Status_Kanban
+					{
+						icon = "business-handout"
+					}
+					report Callback_Schedule_Calendar
+					{
+						icon = "business-handout"
+					}
+					report Applicant_Residential_Map
+					{
+						icon = "business-handout"
+					}
+					report Application_Activity_Timeline
+					{
+						icon = "business-handout"
+					}
+				}
+				section App_Preferences
+				{
+					displayname = "App Preferences"
+					icon = "design-app"
+					systemcomponent
+					{
+						type = localization
+						displayname = "Language Selection"
+						icon = "education-language"
+					}
+					systemcomponent
+					{
+						type = connection
+						displayname = "Integrations"
+						icon = "tech-2-connection"
+					}
+				}
+				section Approvals
+				{
+					displayname = "Approvals"
+					icon = "ui-2-hourglass"
+					systemcomponent
+					{
+						type = approval
+						approval status = pending
+						displayname = "Pending Tasks"
+						icon = "ui-2-hourglass"
+					}
+					systemcomponent
+					{
+						type = approval
+						approval status = completed
+						displayname = "Completed Tasks"
+						icon = "design-todo"
+					}
+				}
+				section SharedAnalytics_Section
+				{
+					type = shared_user_report_section
+					displayname = "Reports"
+					icon = "business-chart-bar-33"
+				}
+				section dashboard
+				{
+					displayname = "dashboard"
+					icon = "ui-1-dashboard-half"
+					page dashboard
+					{
+						icon = "ui-1-dashboard-half"
+					}
+				}
+			}
+			preference
+			{
+				icon
+				{
+					style = outline
+				}
+			}
+		}
+		customize
+		{
+			layout
+			{
+				theme = "theme_6"
+			}
+			font = "lato"
+			color options
+			{
+				color = "11"
+			}
+			logo
+			{
+				preference = "app_icon"
+				placement = "left"
+			}
+		}
+	}
+	phone
+	{
+		forms
+		{
+			form Bank_Loan_Application
+			{
+				label placement = auto
+			}
+		}
+		customize
+		{
+			layout = twocolumn
+			font = "default"
+			style = "3"
+			color options
+			{
+				color = chryslerpurple
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	tablet
+	{
+		forms
+		{
+			form Bank_Loan_Application
+			{
+				label placement = auto
+			}
+		}
+		customize
+		{
+			layout = slidingpane
+			font = "default"
+			style = "3"
+			color options
+			{
+				color = blue
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	translation
+{
+{"Language_Settings":{"LANGAGUE_WITH_LOGIN":"browser"}}
+}
+}

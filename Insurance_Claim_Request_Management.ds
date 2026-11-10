@@ -1,0 +1,1766 @@
+/*
+ * Author       : keerthana.g.2024.cse_raja300
+ * Generated on : 10-Nov-2026 09:23:34
+ * Version      : 1.0
+ */
+ application "Insurance Claim Request Management"
+ {
+ 	date format = "dd-MMM-yyyy"
+ 	time zone = "America/Los_Angeles"
+ 	time format = "24-hr"
+
+ 	forms
+	{
+		form claim_request
+		{
+			displayname = "Claim Request"
+			success message = "Request Claimed Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			claimant_name
+			(
+    			type = name
+				displayname = "Claimant Name"
+     			prefix
+     			(
+	     			 type = prefix
+	     			 displayname ="Prefix"
+	     			 visibility = false
+	     			 value = {"Mr.","Mrs.","Ms."}
+     			) 
+     			first_name
+     			(
+	     			 type = first_name
+	     			 displayname ="First Name"
+     			) 
+     			last_name
+     			(
+	     			 type = last_name
+	     			 displayname ="Last Name"
+	     			 visibility = false
+     			) 
+     			suffix
+     			(
+	     			 type = suffix
+	     			 displayname ="Suffix"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			claimant_type
+			(
+				type = picklist
+				displayname = "Claimant Type"
+				values = {"Nominee","Policyholder","Third Party"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			policy_number
+			(
+    			type = text
+				displayname = "Policy Number"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			email_address
+			(
+    			type = email
+				displayname = "Email Address"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			contact_number
+			(
+    			type = phonenumber
+				displayname = "Contact Number"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			residential_address
+			(
+    			type = address
+				displayname = "Residential Address"
+     			capture_coordinates = true
+     			adjust_using_map = false
+     			address_line_1
+     			(
+	     			  type = address_line_1
+	     			  displayname = "Address Line 1"
+     			) 
+     			address_line_2
+     			(
+	     			  type = address_line_2
+	     			  displayname = "Address Line 2"
+	     			 visibility = false
+     			) 
+     			district_city
+     			(
+	     			  type = district_city
+	     			  displayname = "City / District"
+	     			 visibility = false
+     			) 
+     			state_province
+     			(
+	     			  type = state_province
+	     			  displayname = "State / Province"
+	     			 visibility = false
+     			) 
+     			postal_Code
+     			(
+	     			  type = postal_Code
+	     			  displayname = "Postal Code"
+	     			 visibility = false
+     			) 
+     			country
+     			(
+	     			  type = country
+	     			  displayname = "Country"
+	     			 visibility = false
+     			) 
+     			latitude
+     			(
+	     			  type = latitude
+	     			  displayname = "Latitude"
+	     			 visibility = false
+     			) 
+     			longitude
+     			(
+	     			  type = longitude
+	     			  displayname = "Longitude"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			claim_type
+			(
+				type = picklist
+				displayname = "Claim Type"
+				values = {"Life Insurance","Property Insurance","Motor Insurance","Health Insurance"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			date_of_incident
+			(
+    			type = date
+				displayname = "Date Of Incident"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			claim_amount_requested
+			(
+				type = number
+				displayname = "Claim Amount Requested"
+				maxchar = 19
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			supporting_documents_available
+			(
+				type = list	
+				displayname = "Supporting Documents Available"
+				values = {"Police FIR","Photographs","Medical Reports","Repair Estimate","Other"}
+				height = 13px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			incident_description
+			(
+    			type = textarea
+				displayname = "Incident Description"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			preferred_callback_time
+			(
+    			type = time
+				displayname = "Preferred Callback Time"
+				timedisplayoptions = "hh:mm:ss" 
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			declaration_of_authenticity
+			(
+    			type = checkbox
+				displayname = "Declaration Of Authenticity"
+				initial value = false
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			assigned_investigator
+			(
+				type = list	
+				displayname = "Assigned Investigator"
+				values  = claims_team.ID
+    			displayformat = [team_member_name.first_name]
+				allow new entries
+				[
+					displayname = "Add New"
+				]
+				sortorder = ascending
+				height = 13px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+			blueprint components
+			{
+				stages = {"Claim Received","Claim Under Review","Claim Rejected","Claim Assigned","Claim Pending Information","Investigation In Progress","Claim Approved","Claim Denied","Claim On Hold","Payment Processing","Claim Closed","Appeal Submitted","Payment Failed"}
+			}
+		}
+		form claims_team
+		{
+			displayname = "Claims Team"
+			success message = "Team Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			team_member_name
+			(
+    			type = name
+				displayname = "Team Member Name"
+     			prefix
+     			(
+	     			 type = prefix
+	     			 displayname ="Prefix"
+	     			 visibility = false
+	     			 value = {"Mr.","Mrs.","Ms."}
+     			) 
+     			first_name
+     			(
+	     			 type = first_name
+	     			 displayname ="First Name"
+     			) 
+     			last_name
+     			(
+	     			 type = last_name
+	     			 displayname ="Last Name"
+	     			 visibility = false
+     			) 
+     			suffix
+     			(
+	     			 type = suffix
+	     			 displayname ="Suffix"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			team_email
+			(
+    			type = email
+				displayname = "Team Email"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			team_phone
+			(
+    			type = phonenumber
+				displayname = "Team Phone"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			specialization
+			(
+				type = picklist
+				displayname = "Specialization"
+				values = {"Motor","Health","Life","General","Property"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			employee_id
+			(
+    			type = text
+				displayname = "Employee Id"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			department
+			(
+				type = picklist
+				displayname = "Department"
+				values = {"Claims","Support","Underwriting","Management"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			status
+			(
+				type = picklist
+				displayname = "Status"
+				values = {"Active","On Leave","Inactive"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			assigned_claims
+			(
+				type = list	
+				displayname = "Assigned Claims"
+				values  = claim_request.ID
+    			displayformat = [claimant_name.first_name]
+				allow new entries
+				[
+					displayname = "Add New"
+				]
+				sortorder = ascending
+				height = 13px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+	}
+	reports
+	{
+		list claim_request_Report
+		{
+			displayName = "All Requests"
+			show all rows from claim_request    
+			(
+				claimant_name  as "Claimant Name"
+				claimant_type as "Claimant Type"
+				policy_number as "Policy Number"
+				email_address as "Email Address"
+				contact_number as "Contact Number"
+				residential_address  as "Residential Address"
+	 			(
+	      			enable = Link_to_Map,Show_As_Text
+	 			)
+				claim_type as "Claim Type"
+				date_of_incident as "Date Of Incident"
+				claim_amount_requested as "Claim Amount Requested"
+				supporting_documents_available as "Supporting Documents Available"
+				incident_description as "Incident Description"
+				preferred_callback_time as "Preferred Callback Time"
+				declaration_of_authenticity as "Declaration Of Authenticity"
+				assigned_investigator as "Assigned Investigator"
+			)
+			conditional formatting
+			(
+				"New Formatting1"
+				{
+				condition = (claim_type == "Life Insurance")
+				fields = [claim_type]
+				format = "color:#ffffff;background-color:#765f89;"
+				}
+				"New Formatting2"
+				{
+				condition = (claim_type == "Motor Insurance")
+				fields = [claim_type]
+				format = "color:#000000;background-color:#1bbc9b;"
+				}
+			)
+		}
+		kanban claim_request_by_claim_type
+		{
+			displayName = "Claim Types"
+			show all rows from claim_request    
+			(
+				claimant_name  as "Claimant Name"
+				claimant_type as "Claimant Type"
+				policy_number as "Policy Number"
+				email_address as "Email Address"
+				contact_number as "Contact Number"
+				residential_address  as "Residential Address"
+	 			(
+	      			enable = Link_to_Map,Show_As_Text
+	 			)
+				claim_type as "Claim Type"
+				date_of_incident as "Date Of Incident"
+				claim_amount_requested as "Claim Amount Requested"
+				supporting_documents_available as "Supporting Documents Available"
+				incident_description as "Incident Description"
+				preferred_callback_time as "Preferred Callback Time"
+				declaration_of_authenticity as "Declaration Of Authenticity"
+				assigned_investigator as "Assigned Investigator"
+			)
+			options
+			(
+	 			display field = claim_type
+	 		)
+		}
+		list claims_team_Report
+		{
+			displayName = "All Teams"
+			show all rows from claims_team    
+			(
+				team_member_name  as "Team Member Name"
+				team_email as "Team Email"
+				team_phone as "Team Phone"
+				specialization as "Specialization"
+				employee_id as "Employee Id"
+				department as "Department"
+				status as "Status"
+				assigned_claims as "Assigned Claims"
+			)
+			conditional formatting
+			(
+				"New Formatting1"
+				{
+				condition = (specialization == "General")
+				fields = [specialization]
+				format = "color:#ffffff;background-color:#765f89;"
+				}
+				"New Formatting2"
+				{
+				condition = (specialization == "Life")
+				fields = [specialization]
+				format = "color:#000000;background-color:#1bbc9b;"
+				}
+				"New Formatting3"
+				{
+				condition = (specialization == "Motor")
+				fields = [specialization]
+				format = "color:#ffffff;background-color:#e84c3d;"
+				}
+				"New Formatting4"
+				{
+				condition = (specialization == "Property")
+				fields = [specialization]
+				format = "color:#ffffff;background-color:#3598db;"
+				}
+			)
+		}
+		kanban claims_team_by_specialization
+		{
+			displayName = "Specializations"
+			show all rows from claims_team    
+			(
+				team_member_name  as "Team Member Name"
+				team_email as "Team Email"
+				team_phone as "Team Phone"
+				specialization as "Specialization"
+				employee_id as "Employee Id"
+				department as "Department"
+				status as "Status"
+				assigned_claims as "Assigned Claims"
+			)
+			options
+			(
+	 			display field = specialization
+	 		)
+		}
+	}
+	pages
+	{
+		page DashBoard
+		{
+			displayname = "Dashboard"
+			Content="<zml    \t\t\n\t\t\n\t\t\n\t\t\n\t\t\n>\n\t<layout>\n\t<row>\n\t<column\n   \t\t width='25%'\n   \t>\n\t<panel elementName='Panel 1'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '0px'\n\tbgColor = '#F97164'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpaddingTop = '20px'\n\tpaddingLeft = '20px'\n\tpaddingRight = '0px'\n\tpaddingBottom = '20px'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\t\twidth = '64%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginTop = '8px'\n\tcolor = '#FFFFFF'\n\tsize = '24px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n\n\t\tcriteria = 'claimant_type == &quot;Nominee&quot;'\n\t  value = 'thisapp.claim_request.claimant_type.count'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '8px' \n\tmarginTop = '0px'\n\tcolor = '#FFFFFF'\n\tsize = '14px'\n\ttype = 'Text'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\n\n\n\n\t  value = 'Count of Nominee'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc><pc \n\t\tpadding = '20px'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\t\twidth = '36%'\n\t\thAlign = 'right'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<image  \n\t\tmarginLeft = '10px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = '#FFFFFF'\n\tbgColor = '#C75A50'\n\twidth = '40px'\n\theight = '40px'\n\ttype = 'icon'\n\tvalue = 'travel-white-house'\n\tsize = '22px'\n\tcornerRadius = '10px'\n\ticonType = 'outline'\n/>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column><column\n   \t\t width='24%'\n   \t>\n\t<panel elementName='Panel 2'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '0px'\n\tbgColor = '#EEA131'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpaddingTop = '20px'\n\tpaddingLeft = '20px'\n\tpaddingRight = '0px'\n\tpaddingBottom = '20px'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\t\twidth = '65%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tcolor = '#FFFFFF'\n\tsize = '24px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n\n\t\tcriteria = 'claimant_type == &quot;Policyholder&quot;'\n\t  value = 'thisapp.claim_request.claimant_type.count'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tcolor = '#FFFFFF'\n\tsize = '14px'\n\ttype = 'Text'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\n\n\n\n\t  value = 'Total Policyholders'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc><pc \n\t\tpadding = '20px'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\t\twidth = '35%'\n\t\thAlign = 'right'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<image  \n\t\tmarginLeft = '10px'\n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = '#FFFFFF'\n\tbgColor = '#BE8127'\n\twidth = '40px'\n\theight = '40px'\n\ttype = 'icon'\n\tvalue = 'business-payment'\n\tsize = '22px'\n\tcornerRadius = '10px'\n\ticonType = 'outline'\n/>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column><column\n   \t\t width='25%'\n   \t>\n\t<panel elementName='Panel 3'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '0px'\n\tbgColor = '#00CFA9'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpaddingTop = '20px'\n\tpaddingLeft = '20px'\n\tpaddingRight = '0px'\n\tpaddingBottom = '20px'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\t\twidth = '65%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tcolor = '#FFFFFF'\n\tsize = '24px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n\n\t\tcriteria = 'claimant_type == &quot;Third Party&quot;'\n\t  value = 'thisapp.claim_request.claimant_type.count'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tcolor = '#FFFFFF'\n\tsize = '14px'\n\ttype = 'Text'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\n\n\n\n\t  value = 'Total Third Parties'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc><pc \n\t\tpadding = '20px'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\t\twidth = '35%'\n\t\thAlign = 'right'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<image  \n\t\tmarginLeft = '10px'\n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = '#FFFFFF'\n\tbgColor = '#0BA385'\n\twidth = '40px'\n\theight = '40px'\n\ttype = 'icon'\n\tvalue = 'health-ambulance'\n\tsize = '22px'\n\tcornerRadius = '10px'\n\ticonType = 'outline'\n/>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column><column\n   \t\t width='26%'\n   \t>\n\t<panel elementName='Panel 4'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '0px'\n\tbgColor = '#3E99DE'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpaddingTop = '20px'\n\tpaddingLeft = '20px'\n\tpaddingRight = '0px'\n\tpaddingBottom = '20px'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\t\twidth = '65%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tcolor = '#FFFFFF'\n\tsize = '24px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n\n\t  value = 'thisapp.claim_request.claimant_type.count'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tcolor = '#FFFFFF'\n\tsize = '14px'\n\ttype = 'Text'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\n\n\n\n\t  value = 'Total Requests'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc><pc \n\t\tpadding = '20px'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\t\twidth = '35%'\n\t\thAlign = 'right'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<image  \n\t\tmarginLeft = '10px'\n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = '#FFFFFF'\n\tbgColor = '#0E78C9'\n\twidth = '40px'\n\theight = '40px'\n\ttype = 'icon'\n\tvalue = 'business-money-bag'\n\tsize = '22px'\n\tcornerRadius = '10px'\n\ticonType = 'outline'\n/>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<panel elementName='Grouped_Panel 1'\n \n\t\n\ttitle = 'Status'\n\t\n\t\ttitleSize = '15px'\n            boldTitle = 'true'\n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '0px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '25%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<image  \n\t\tmarginLeft = '0px'\n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = '#FFFFFF'\n\tbgColor = '#F97164'\n\twidth = '40px'\n\theight = '40px'\n\ttype = 'icon'\n\tvalue = 'loader-refresh'\n\tsize = '22px'\n\tcornerRadius = '20px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\tpaddingLeft = '10px'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\t\thAlign = 'left'\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '10px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tcolor = '#C75A50'\n\tsize = '28px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n\n\t\tcriteria = 'status == &quot;Active&quot;'\n\t  value = 'thisapp.claims_team.status.count'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '10px'\n\tcolor = '#595959'\n\tsize = '14px'\n\ttype = 'Text'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\n\n\n\n\t  value = 'Active'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc><pc \n\t\tpadding = '20px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '25%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<image  \n\t\tmarginLeft = '0px'\n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = '#FFFFFF'\n\tbgColor = '#EEA131'\n\twidth = '40px'\n\theight = '40px'\n\ttype = 'icon'\n\tvalue = 'media-1-button-power'\n\tsize = '22px'\n\tcornerRadius = '20px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\tpaddingLeft = '10px'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\t\thAlign = 'left'\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '10px'\n\tmarginRight = '0px' \n\tcolor = '#BE8127'\n\tsize = '28px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n\n\t\tcriteria = 'status == &quot;On Leave&quot;'\n\t  value = 'thisapp.claims_team.status.count'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '10px'\n\tmarginRight = '0px' \n\tmarginTop = '0px'\n\tcolor = '#595959'\n\tsize = '14px'\n\ttype = 'Text'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\n\n\n\n\t  value = 'On Leave'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc><pc \n\t\tpadding = '20px'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\t\twidth = '25%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<image  \n\t\tmarginLeft = '0px'\n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = '#FFFFFF'\n\tbgColor = '#00CFA9'\n\twidth = '40px'\n\theight = '40px'\n\ttype = 'icon'\n\tvalue = 'ui-2-grid-50'\n\tsize = '22px'\n\tcornerRadius = '20px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\tpaddingLeft = '10px'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\t\thAlign = 'left'\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '10px'\n\tmarginRight = '0px' \n\tcolor = '#0BA385'\n\tsize = '28px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n\n\t\tcriteria = 'status == &quot;Inactive&quot;'\n\t  value = 'thisapp.claims_team.status.count'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '10px'\n\tmarginRight = '0px' \n\tmarginTop = '0px'\n\tcolor = '#595959'\n\tsize = '14px'\n\ttype = 'Text'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\n\n\n\n\t  value = 'Inactive'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc><pc \n\t\tpadding = '20px'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\t\twidth = '25%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<image  \n\t\tmarginLeft = '0px'\n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = '#FFFFFF'\n\tbgColor = '#3E99DE'\n\twidth = '40px'\n\theight = '40px'\n\ttype = 'icon'\n\tvalue = 'travel-world'\n\tsize = '22px'\n\tcornerRadius = '20px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\tpaddingLeft = '10px'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\t\thAlign = 'left'\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '10px'\n\tmarginRight = '0px' \n\tcolor = '#0E78C9'\n\tsize = '28px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n\n\t  value = 'thisapp.claims_team.status.count'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '10px'\n\tmarginRight = '0px' \n\tmarginTop = '0px'\n\tcolor = '#595959'\n\tsize = '14px'\n\ttype = 'Text'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\n\n\n\n\t  value = 'Total'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column>\n</row><row>\n\t<column\n   \t\t width='24%'\n   \t>\n\t<panel elementName='Panel_Button 1'\n \n\t\n\ttitle = 'Quick Links'\n\t\n\t\ttitleSize = '15px'\n            boldTitle = 'true'\n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tbgColor = '#CB6711'\n\n\t\twidth = '2%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t\n</pc>\n</pr>\n</pc><pc \n\t\tpaddingTop = '10px'\n\tpaddingLeft = '0px'\n\tpaddingRight = '0px'\n\tpaddingBottom = '10px'\n\tbgColor = '#FFFFFF'\n\n    action = 'OpenForm'\n\t\tcomponentLinkName = 'claim_request'\n\t\ttarget = 'new-window'\n\t\twidth = '98%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<image  \n\t\tmarginLeft = '0px'\n\tmarginRight = '6px' \n\n\tcolor = '#3F3F3F'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\twidth = '40px'\n\theight = '40px'\n\ttype = 'icon'\n\tvalue = 'ui-2-square-add-08'\n\tsize = '14px'\n\tcornerRadius = '20px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\n>\n\t<text \n\n\tcolor = '#595959'\n\tsize = '14px'\n\ttype = 'Text'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\n\n\n\n\t  value = 'Add New Claim Request'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column><column\n   \t\t width='27%'\n   \t>\n\t<panel elementName='Panel_Button 2'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tbgColor = '#CB6711'\n\n\t\twidth = '2%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t\n</pc>\n</pr>\n</pc><pc \n\t\tpaddingTop = '10px'\n\tpaddingLeft = '0px'\n\tpaddingRight = '0px'\n\tpaddingBottom = '10px'\n\tbgColor = '#FFFFFF'\n\n    action = 'OpenReport'\n\t\tcomponentLinkName = 'claim_request_Report'\n\t\ttarget = 'new-window'\n\t\twidth = '98%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<image  \n\t\tmarginLeft = '0px'\n\tmarginRight = '6px' \n\n\tcolor = '#3F3F3F'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\twidth = '40px'\n\theight = '40px'\n\ttype = 'icon'\n\tvalue = 'ui-2-square-add-08'\n\tsize = '14px'\n\tcornerRadius = '20px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\n>\n\t<text \n\n\tcolor = '#3F3F3F'\n\tsize = '14px'\n\ttype = 'Text'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\n\n\n\n\t  value = 'Show All Requests'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column><column\n   \t\t width='25%'\n   \t>\n\t<panel elementName='Panel_Button 3'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tbgColor = '#CB6711'\n\n\t\twidth = '2%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t\n</pc>\n</pr>\n</pc><pc \n\t\tpaddingTop = '10px'\n\tpaddingLeft = '0px'\n\tpaddingRight = '0px'\n\tpaddingBottom = '10px'\n\tbgColor = '#FFFFFF'\n\n    action = 'OpenForm'\n\t\tcomponentLinkName = 'claims_team'\n\t\ttarget = 'new-window'\n\t\twidth = '98%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<image  \n\t\tmarginLeft = '0px'\n\tmarginRight = '6px' \n\n\tcolor = '#3F3F3F'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\twidth = '40px'\n\theight = '40px'\n\ttype = 'icon'\n\tvalue = 'ui-2-square-add-08'\n\tsize = '14px'\n\tcornerRadius = '20px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\n>\n\t<text \n\n\tcolor = '#3F3F3F'\n\tsize = '14px'\n\ttype = 'Text'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\n\n\n\n\t  value = 'Add New Claims Team'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column><column\n   \t\t width='24%'\n   \t>\n\t<panel elementName='Panel_Button 4'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tbgColor = '#CB6711'\n\n\t\twidth = '2%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t\n</pc>\n</pr>\n</pc><pc \n\t\tpaddingTop = '10px'\n\tpaddingLeft = '0px'\n\tpaddingRight = '0px'\n\tpaddingBottom = '10px'\n\tbgColor = '#FFFFFF'\n\n    action = 'OpenReport'\n\t\tcomponentLinkName = 'claims_team_Report'\n\t\ttarget = 'new-window'\n\t\twidth = '98%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<image  \n\t\tmarginLeft = '0px'\n\tmarginRight = '6px' \n\n\tcolor = '#3F3F3F'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\twidth = '40px'\n\theight = '40px'\n\ttype = 'icon'\n\tvalue = 'ui-2-square-add-08'\n\tsize = '14px'\n\tcornerRadius = '20px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\n>\n\t<text \n\n\tcolor = '#3F3F3F'\n\tsize = '14px'\n\ttype = 'Text'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\n\n\n\n\t  value = 'Show All Teams'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column>\n</row><row>\n\t<column\n   \t\t width='50%'\n   \t>\n\t<chart \n\telementName='Chart 1'\n\n\t\n\ttitle = 'Claimant Type by Claim Amount Requested'\n\t\n\t\ttitleSize = '16px'\n\ttype = 'Bar'\n\txtitle = 'Claimant Type'\n\tytitle = 'Claim Amount Requested'\n\tbgColor = 'rgb(255, 255, 255)'\n\ttheme = '#f37d16'\n\tlegendPos = 'none'\n\theightType = 'auto'\n\theightValue = '300px'\n\tappLinkName = 'thisapp'\n\tformLinkName = 'claim_request'\n\txfield = 'claimant_type'\n\tyfields = 'sum:claim_amount_requested'\n\tgroupBy = 'claimant_name'\n\t\tDelugeCriteria = 'claimant_type is not null &amp;&amp; claimant_type != &quot;&quot;'\n/>\n\n</column><column\n   \t\t width='50%'\n   \t>\n\t<chart \n\telementName='Chart 2'\n\n\t\n\ttitle = 'Claim Type by Claim Amount Requested'\n\t\n\t\ttitleSize = '16px'\n\ttype = 'Bar'\n\txtitle = 'Claim Type'\n\tytitle = 'Claim Amount Requested'\n\tbgColor = 'rgb(255, 255, 255)'\n\ttheme = 'theme1'\n\tlegendPos = 'none'\n\theightType = 'auto'\n\theightValue = '300px'\n\tappLinkName = 'thisapp'\n\tformLinkName = 'claim_request'\n\txfield = 'claim_type'\n\tyfields = 'sum:claim_amount_requested'\n\tgroupBy = 'claimant_name'\n\t\tDelugeCriteria = 'claim_type is not null &amp;&amp; claim_type != &quot;&quot;'\n/>\n\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<report \n\telementName='Report'\n\n\t\tappLinkName = 'thisapp'\n\t\tlinkName = 'claim_request_Report'\n\t\n\t\tiszreport = 'false'\n\t\t\t\t\tzc_AddRec = 'false'\n\t\t\t\t\tzc_EditRec = 'false'\n\t\t\t\t\tzc_Print = 'false'\n\t\t\t\t\tzc_Export = 'false'\n\t\t\t\t\tzc_DelRec = 'false'\n\t\t\t\t\tzc_DuplRec = 'false'\n\t\t\t\t\tzc_Search = 'false'\n\t\t\t\t\tzc_EditBulkRec = 'false'\n\t\t\t\t\tzc_BulkDelete = 'false'\n\t\t\t\t\tzc_BulkDuplicate = 'false'\n\theightType = 'auto'\n\theightValue = '700'\n/>\n</column>\n</row>\n</layout>\n</zml>"
+		}
+	}
+
+
+
+
+		workflow
+		{
+		form
+		{
+			auto_assign_investigator as "Auto-Assign Investigator by Claim Type"
+			{
+				type =  form
+				form = claim_request
+
+				record event = on add
+
+				on load
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											// Fetch the claims team records to build a mapping of specialization to investigator IDs
+										claimsTeamRecords = claims_team[ID != 0];
+										// Initialize a map to store specialization to investigator ID mapping
+										investigatorMap = Map();
+										// Iterate through claims team to build the mapping
+										for each  teamMember in claimsTeamRecords
+										{
+											// Get the specialization of the team member
+											specialization = teamMember.specialization;
+											// Check if specialization is not null or empty
+											if(!specialization.isNull() && !specialization.isEmpty())
+											{
+												// Store the investigator ID for this specialization
+												investigatorMap.put(specialization,teamMember.ID);
+											}
+										}
+										// Get the claim type from input
+										claimType = input.claim_type;
+										// Initialize investigator ID variable
+										investigatorID = null;
+										// Check if claim type is not null or empty
+										if(!claimType.isNull() && !claimType.isEmpty())
+										{
+											// Check if the claim type exists in the investigator map
+											if(investigatorMap.containKey(claimType))
+											{
+												// Get the investigator ID for the claim type
+												investigatorID = investigatorMap.get(claimType);
+											}
+										}
+										// Assign the investigator to the assigned_investigator field if found
+										if(!investigatorID.isNull())
+										{
+											input.assigned_investigator = investigatorID;
+										}
+										// Enable the assigned_investigator field
+										enable assigned_investigator;
+						)
+					}
+				}
+
+			}
+			validate_claim_amount_docs as "Validate Claim Amount and Documents"
+			{
+				type =  form
+				form = claim_request
+
+				record event = on add or edit
+
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											// Check if claim amount exceeds the limit (assuming limit is 100000)
+										if(input.claim_amount_requested > 100000)
+										{
+											alert "Claim amount exceeds the maximum limit of 100000. Please reduce the amount.";
+											cancel submit;
+										}
+										// Check if supporting documents are available
+										if(input.supporting_documents_available.size() == 0)
+										{
+											alert "Please upload at least one supporting document (Police FIR, Photographs, Medical Reports, Repair Estimate, or Other).";
+											cancel submit;
+										}
+						)
+					}
+				}
+
+			}
+		}
+
+
+
+
+		blueprint
+		{
+    			claim_intake_and_assignment as "Claim Intake and Assignment"
+    			{
+        			type = Blueprint
+        			form = claim_request
+        			start
+        			{
+            			start stage = "Claim Received"
+        			}
+        			stages
+        			{
+           			"Claim Received"
+           			{
+           			}
+           			"Claim Under Review"
+           			{
+           			}
+           			"Claim Rejected"
+           			{
+           			}
+           			"Claim Assigned"
+           			{
+           			}
+           			"Claim Pending Information"
+           			{
+           			}
+           			"Investigation In Progress"
+           			{
+           			}
+           			"Claim Approved"
+           			{
+           			}
+           			"Claim Denied"
+           			{
+           			}
+           			"Claim On Hold"
+           			{
+           			}
+           			"Payment Processing"
+           			{
+           			}
+           			"Claim Closed"
+           			{
+           			}
+           			"Appeal Submitted"
+           			{
+           			}
+           			"Payment Failed"
+           			{
+           			}
+        			}
+        			transitions
+        			{
+    				approve_claim as "Approve Claim"
+    				{
+         				type = normal
+         				from stage = "Investigation In Progress"
+         				to stage = "Claim Approved"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				assign_investigator as "Assign Investigator"
+    				{
+         				type = normal
+         				from stage = "Claim Under Review"
+         				to stage = "Claim Assigned"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				close_appeal as "Close Appeal"
+    				{
+         				type = normal
+         				from stage = "Appeal Submitted"
+         				to stage = "Claim Closed"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				close_claim as "Close Claim"
+    				{
+         				type = normal
+         				from stage = "Claim Approved"
+         				to stage = "Claim Closed"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				close_non_response as "Close Due to Non-Response"
+    				{
+         				type = normal
+         				from stage = "Claim Pending Information"
+         				to stage = "Claim Rejected"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				deny_claim as "Deny Claim"
+    				{
+         				type = normal
+         				from stage = "Investigation In Progress"
+         				to stage = "Claim Denied"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				deny_expiration as "Deny Due to Expiration"
+    				{
+         				type = normal
+         				from stage = "Claim On Hold"
+         				to stage = "Claim Denied"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				finalize_payment as "Finalize Payment"
+    				{
+         				type = normal
+         				from stage = "Payment Processing"
+         				to stage = "Claim Closed"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				hold_claim as "Place Claim On Hold"
+    				{
+         				type = normal
+         				from stage = "Investigation In Progress"
+         				to stage = "Claim On Hold"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				initiate_payment as "Initiate Payment"
+    				{
+         				type = normal
+         				from stage = "Claim Approved"
+         				to stage = "Payment Processing"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				mark_payment_failed as "Mark Payment Failed"
+    				{
+         				type = normal
+         				from stage = "Payment Processing"
+         				to stage = "Payment Failed"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				reevaluate_claim as "Re-evaluate Claim"
+    				{
+         				type = normal
+         				from stage = "Appeal Submitted"
+         				to stage = "Claim Under Review"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				reject_claim as "Reject Incomplete Claim"
+    				{
+         				type = normal
+         				from stage = "Claim Received"
+         				to stage = "Claim Rejected"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				reject_invalid as "Reject Invalid Claim"
+    				{
+         				type = normal
+         				from stage = "Claim Under Review"
+         				to stage = "Claim Rejected"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				request_evidence as "Request Further Evidence"
+    				{
+         				type = normal
+         				from stage = "Investigation In Progress"
+         				to stage = "Claim Pending Information"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				request_info as "Request Additional Details"
+    				{
+         				type = normal
+         				from stage = "Claim Under Review"
+         				to stage = "Claim Pending Information"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				request_missing_docs as "Request Missing Documents"
+    				{
+         				type = normal
+         				from stage = "Claim Assigned"
+         				to stage = "Claim Pending Information"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				resubmit_info as "Resubmit Information"
+    				{
+         				type = normal
+         				from stage = "Claim Pending Information"
+         				to stage = "Claim Under Review"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				resume_investigation as "Resume Investigation"
+    				{
+         				type = normal
+         				from stage = "Claim On Hold"
+         				to stage = "Investigation In Progress"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				retry_payment as "Retry Payment"
+    				{
+         				type = normal
+         				from stage = "Payment Failed"
+         				to stage = "Payment Processing"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				start_investigation as "Start Investigation"
+    				{
+         				type = normal
+         				from stage = "Claim Assigned"
+         				to stage = "Investigation In Progress"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				submit_appeal as "Submit Appeal"
+    				{
+         				type = normal
+         				from stage = "Claim Denied"
+         				to stage = "Appeal Submitted"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				validate_claim as "Validate Claim Details"
+    				{
+         				type = normal
+         				from stage = "Claim Received"
+         				to stage = "Claim Under Review"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+        			}
+    			}
+		}
+
+
+	}
+	share_settings
+	{
+			"Read"
+			{
+				name = "Read"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have read permission for all components\n"
+			}
+			"Write"
+			{
+				name = "Write"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have write permission for all components\n"
+			}
+			"Administrator"
+			{
+				name = "Administrator"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have all the permissions.\n"
+			}
+			"Claims Team Manager"
+			{
+				name = "Claims Team Manager"
+				type = Users_Permissions
+				permissions = {Chat:false, Predefined:false, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Oversee the workflow and performance of the entire claims department \n"
+				ModulePermissions
+				{
+					claim_request
+					{
+						enabled= Create,Viewall,Modifyall,Import,Export,Tab 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							claim_request_Report={"View","Edit","Delete"}
+							claim_request_by_claim_type={"View","Edit","Delete"}
+						}
+					}
+					claims_team
+					{
+						enabled= Create,Viewall,Modifyall,Import,Export,Tab 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							claims_team_by_specialization={"View","Edit","Delete"}
+							claims_team_Report={"View","Edit","Delete"}
+						}
+					}
+				}
+			}
+			"Claims Intake Specialist"
+			{
+				name = "Claims Intake Specialist"
+				type = Users_Permissions
+				permissions = {Chat:false, Predefined:false, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Review incoming digital claim submissions for completeness and accuracy \n"
+				ModulePermissions
+				{
+					claim_request
+					{
+						enabled= Viewall,Modifyall,Import,Export 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							claim_request_Report={"View","Edit","Delete"}
+							claim_request_by_claim_type={"View","Edit","Delete"}
+						}
+					}
+					claims_team
+					{
+						enabled= Viewall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							claims_team_by_specialization={"View"}
+							claims_team_Report={"View"}
+						}
+					}
+				}
+			}
+			"Developer"
+			{
+				name = "Developer"
+				type = Developer
+				permissions = {Chat:false, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Developer Profile\n"
+			}
+			"Claims Adjuster"
+			{
+				name = "Claims Adjuster"
+				type = Users_Permissions
+				permissions = {Chat:false, Predefined:false, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Evaluate the financial value of approved claims against policy limits \n"
+				ModulePermissions
+				{
+					claim_request
+					{
+						enabled= Viewall,Modifyall,Export 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							claim_request_Report={"View","Edit","Delete"}
+							claim_request_by_claim_type={"View","Edit","Delete"}
+						}
+					}
+					claims_team
+					{
+						enabled= Viewall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							claims_team_by_specialization={"View"}
+							claims_team_Report={"View"}
+						}
+					}
+				}
+			}
+			"Claims Investigator"
+			{
+				name = "Claims Investigator"
+				type = Users_Permissions
+				permissions = {Chat:false, Predefined:false, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Conduct detailed investigations into specific incidents based on assigned claims \n"
+				ModulePermissions
+				{
+					claim_request
+					{
+						enabled= Viewall,Modifyall,Export 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							claim_request_Report={"View","Edit","Delete"}
+							claim_request_by_claim_type={"View","Edit","Delete"}
+						}
+					}
+					claims_team
+					{
+						enabled= Viewall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							claims_team_by_specialization={"View"}
+							claims_team_Report={"View"}
+						}
+					}
+				}
+			}
+			"Nominee"
+			{
+				name = "Nominee"
+				type = Customer_Portal
+				permissions = {Chat:false, Predefined:false, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Initiate claims on behalf of a deceased policyholder \n"
+				ModulePermissions
+				{
+					claim_request
+					{
+						enabled= Create,Export,Tab 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							claim_request_Report={"View","Edit"}
+							claim_request_by_claim_type={"View","Edit"}
+						}
+					}
+				}
+			}
+			"Policyholder"
+			{
+				name = "Policyholder"
+				type = Customer_Portal
+				permissions = {Chat:false, Predefined:false, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Submit new insurance claims and upload required supporting documents \n"
+				ModulePermissions
+				{
+					claim_request
+					{
+						enabled= Create,Export,Tab 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							claim_request_Report={"View","Edit"}
+							claim_request_by_claim_type={"View","Edit"}
+						}
+					}
+				}
+			}
+			"Customer"
+			{
+				name = "Customer"
+				type = Customer_Portal
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This is the default profile having only add and view permission.\n"
+			}
+			roles
+			{
+				"CEO"
+				{
+					description = "User belonging to this role can access data of all other users."
+				}
+			}
+	}
+
+
+	web
+	{
+		forms
+		{
+			form claim_request
+			{
+				label placement = left
+			}
+			form claims_team
+			{
+				label placement = left
+			}
+		}
+		reports
+		{
+			report claim_request_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								claimant_name as "Claimant Name"
+								claimant_type as "Claimant Type"
+								policy_number as "Policy Number"
+								email_address as "Email Address"
+								contact_number as "Contact Number"
+								residential_address as "Residential Address"
+								claim_type as "Claim Type"
+								date_of_incident as "Date Of Incident"
+								claim_amount_requested as "Claim Amount Requested"
+								supporting_documents_available as "Supporting Documents Available"
+								incident_description as "Incident Description"
+								preferred_callback_time as "Preferred Callback Time"
+								declaration_of_authenticity as "Declaration Of Authenticity"
+								assigned_investigator as "Assigned Investigator"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+		     				title = "Overview"
+							fields
+							(
+								claimant_name as "Claimant Name"
+								claimant_type as "Claimant Type"
+								policy_number as "Policy Number"
+								email_address as "Email Address"
+								contact_number as "Contact Number"
+								residential_address as "Residential Address"
+								claim_type as "Claim Type"
+								date_of_incident as "Date Of Incident"
+								claim_amount_requested as "Claim Amount Requested"
+								supporting_documents_available as "Supporting Documents Available"
+								incident_description as "Incident Description"
+								preferred_callback_time as "Preferred Callback Time"
+								declaration_of_authenticity as "Declaration Of Authenticity"
+								assigned_investigator as "Assigned Investigator"
+							)
+						)
+						datablock2
+						(
+		     				title = "Assigned Investigator"
+		     				related field = assigned_investigator
+							fields
+							(
+								team_member_name as "Team Member Name"
+								team_email as "Team Email"
+								team_phone as "Team Phone"
+								specialization as "Specialization"
+								employee_id as "Employee Id"
+								department as "Department"
+								status as "Status"
+								assigned_claims as "Assigned Claims"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+			report claim_request_by_claim_type
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = 1
+							fields
+							(
+								claimant_name as "Claimant Name"
+								policy_number as "Policy Number"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								claimant_name as "Claimant Name"
+								claimant_type as "Claimant Type"
+								policy_number as "Policy Number"
+								email_address as "Email Address"
+								contact_number as "Contact Number"
+								residential_address as "Residential Address"
+								claim_type as "Claim Type"
+								date_of_incident as "Date Of Incident"
+								claim_amount_requested as "Claim Amount Requested"
+								supporting_documents_available as "Supporting Documents Available"
+								incident_description as "Incident Description"
+								preferred_callback_time as "Preferred Callback Time"
+								declaration_of_authenticity as "Declaration Of Authenticity"
+								assigned_investigator as "Assigned Investigator"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+			report claims_team_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								team_member_name as "Team Member Name"
+								team_email as "Team Email"
+								team_phone as "Team Phone"
+								specialization as "Specialization"
+								employee_id as "Employee Id"
+								department as "Department"
+								status as "Status"
+								assigned_claims as "Assigned Claims"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+		     				title = "Overview"
+							fields
+							(
+								team_member_name as "Team Member Name"
+								team_email as "Team Email"
+								team_phone as "Team Phone"
+								specialization as "Specialization"
+								employee_id as "Employee Id"
+								department as "Department"
+								status as "Status"
+								assigned_claims as "Assigned Claims"
+							)
+						)
+						datablock2
+						(
+		     				title = "Assigned Claims"
+		     				related field = assigned_claims
+							fields
+							(
+								claimant_name as "Claimant Name"
+								claimant_type as "Claimant Type"
+								policy_number as "Policy Number"
+								email_address as "Email Address"
+								contact_number as "Contact Number"
+								residential_address as "Residential Address"
+								claim_type as "Claim Type"
+								date_of_incident as "Date Of Incident"
+								claim_amount_requested as "Claim Amount Requested"
+								supporting_documents_available as "Supporting Documents Available"
+								incident_description as "Incident Description"
+								preferred_callback_time as "Preferred Callback Time"
+								declaration_of_authenticity as "Declaration Of Authenticity"
+								assigned_investigator as "Assigned Investigator"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+			report claims_team_by_specialization
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = 1
+							fields
+							(
+								team_member_name as "Team Member Name"
+								employee_id as "Employee Id"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								team_member_name as "Team Member Name"
+								team_email as "Team Email"
+								team_phone as "Team Phone"
+								specialization as "Specialization"
+								employee_id as "Employee Id"
+								department as "Department"
+								status as "Status"
+								assigned_claims as "Assigned Claims"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+		}
+		menu
+		{
+			space Space
+			{
+				displayname = "Space"
+				icon = "objects-spaceship"
+
+				section Section_1
+				{
+					displayname = "Dashboard"
+					icon = "ui-1-dashboard-half"
+					page DashBoard
+					{
+						icon = "ui-1-dashboard-half"
+					}
+				}
+				section Section_2
+				{
+					displayname = "Requests"
+					icon = "shopping-delivery"
+					form  claim_request
+					{
+						icon = "ui-1-bold-add"
+					}
+					report claim_request_Report
+					{
+						icon = "travel-world"
+					}
+					report claim_request_by_claim_type
+					{
+						icon = "design-2-cursor-not-allowed"
+					}
+				}
+				section Section_3
+				{
+					displayname = "Teams"
+					icon = "users-multiple-11"
+					form  claims_team
+					{
+						icon = "ui-1-bold-add"
+					}
+					report claims_team_Report
+					{
+						icon = "travel-world"
+					}
+					report claims_team_by_specialization
+					{
+						icon = "design-2-selection"
+					}
+				}
+				section ZC_App_Preferences
+				{
+					displayname = "App Preferences"
+					icon = "design-app"
+					systemcomponent
+					{
+						type = localization
+						displayname = "Language Selection"
+						icon = "education-language"
+					}
+					systemcomponent
+					{
+						type = connection
+						displayname = "Integrations"
+						icon = "tech-2-connection"
+					}
+				}
+				section ZC_Approvals
+				{
+					displayname = "Approvals"
+					icon = "ui-2-hourglass"
+					systemcomponent
+					{
+						type = approval
+						approval status = pending
+						displayname = "Pending Tasks"
+						icon = "ui-2-hourglass"
+					}
+					systemcomponent
+					{
+						type = approval
+						approval status = completed
+						displayname = "Completed Tasks"
+						icon = "design-todo"
+					}
+				}
+				section SharedAnalytics_Section
+				{
+					type = shared_user_report_section
+					displayname = "Reports"
+					icon = "business-chart-bar-33"
+				}
+			}
+			preference
+			{
+				icon
+				{
+					style = solid
+					show = {space,section,component}
+				}
+			}
+		}
+		customize
+		{
+			new theme = 4
+			font = "lato"
+			color options
+			{
+				color = "6"
+			}
+			logo
+			{
+				preference = "none"
+				placement = "left"
+			}
+		}
+	}
+	phone
+	{
+		customize
+		{
+			layout = twocolumn
+			font = "default"
+			style = "3"
+			color options
+			{
+				color = chryslerpurple
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	tablet
+	{
+		customize
+		{
+			layout = slidingpane
+			font = "default"
+			style = "3"
+			color options
+			{
+				color = amethyst
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	translation
+{
+{"Language_Settings":{"LANGAGUE_WITH_LOGIN":"browser"}}
+}
+}
